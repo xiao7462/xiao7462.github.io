@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>1576. 替换所有的问号 | Hexo</title>
-  <meta name="keywords" content=" leetcode , 字符串 ">
-  <meta name="description" content="1576. 替换所有的问号 | Hexo">
+  <title>面试题 02.01. 移除重复节点 | Hexo</title>
+  <meta name="keywords" content=" leetcode , 链表 ">
+  <meta name="description" content="面试题 02.01. 移除重复节点 | Hexo">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="关于我一个程序员">
 <meta property="og:type" content="website">
@@ -321,9 +321,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-1576. 替换所有的问号" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-面试题 02.01. 移除重复节点" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">1576. 替换所有的问号</h1>
+        <h1 class="article-title">面试题 02.01. 移除重复节点</h1>
     
     <div class="article-meta">
         
@@ -335,7 +335,7 @@
             
             <a  data-rel="算法">算法</a> > 
             
-            <a  data-rel="算法&lt;---&gt;字符串">字符串</a>
+            <a  data-rel="算法&lt;---&gt;链表">链表</a>
             
         </span>
         
@@ -345,19 +345,19 @@
             
             <a class="color4">leetcode</a>
             
-            <a class="color4">字符串</a>
+            <a class="color3">链表</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2020-09-14 23:08:43'>2020-09-14 23:02</time>
+            Created At : <time class="date" title='Updated At: 2020-09-16 21:42:46'>2020-09-16 21:40</time>
         
     </div>
     <div class="article-meta">
         
-        <span>Count:763</span>
+        <span>Count:228</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -387,7 +387,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1576-%E6%9B%BF%E6%8D%A2%E6%89%80%E6%9C%89%E7%9A%84%E9%97%AE%E5%8F%B7"><span class="toc-text">1576. 替换所有的问号</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A2%98%E8%A7%A3"><span class="toc-text">题解</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%9D%A2%E8%AF%95%E9%A2%98-02-01-%E7%A7%BB%E9%99%A4%E9%87%8D%E5%A4%8D%E8%8A%82%E7%82%B9"><span class="toc-text">面试题 02.01. 移除重复节点</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A2%98%E8%A7%A3"><span class="toc-text">题解</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -403,93 +403,42 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="1576-替换所有的问号"><a href="#1576-替换所有的问号" class="headerlink" title="1576. 替换所有的问号"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/replace-all-s-to-avoid-consecutive-repeating-characters/">1576. 替换所有的问号</a></h1><p>难度简单5收藏分享切换为英文关注反馈</p>
-<p>给你一个仅包含小写英文字母和 <code>&#39;?&#39;</code> 字符的字符串 <code>s</code>，请你将所有的 <code>&#39;?&#39;</code> 转换为若干小写字母，使最终的字符串不包含任何 <strong>连续重复</strong> 的字符。</p>
-<p>注意：你 <strong>不能</strong> 修改非 <code>&#39;?&#39;</code> 字符。</p>
-<p>题目测试用例保证 <strong>除</strong> <code>&#39;?&#39;</code> 字符 <strong>之外</strong>，不存在连续重复的字符。</p>
-<p>在完成所有转换（可能无需转换）后返回最终的字符串。如果有多个解决方案，请返回其中任何一个。可以证明，在给定的约束条件下，答案总是存在的。</p>
-<p><strong>示例 1：</strong></p>
-<pre><code class="java">输入：s = &quot;?zs&quot;
-输出：&quot;azs&quot;
-解释：该示例共有 25 种解决方案，从 &quot;azs&quot; 到 &quot;yzs&quot; 都是符合题目要求的。只有 &quot;z&quot; 是无效的修改，因为字符串 &quot;zzs&quot; 中有连续重复的两个 &#39;z&#39; 。</code></pre>
-<p><strong>示例 2：</strong></p>
-<pre><code class="java">输入：s = &quot;ubv?w&quot;
-输出：&quot;ubvaw&quot;
-解释：该示例共有 24 种解决方案，只有替换成 &quot;v&quot; 和 &quot;w&quot; 不符合题目要求。因为 &quot;ubvvw&quot; 和 &quot;ubvww&quot; 都包含连续重复的字符。</code></pre>
-<p><strong>示例 3：</strong></p>
-<pre><code class="java">输入：s = &quot;j?qg??b&quot;
-输出：&quot;jaqgacb&quot;</code></pre>
-<p><strong>示例 4：</strong></p>
-<pre><code class="java">输入：s = &quot;??yw?ipkj?&quot;
-输出：&quot;acywaipkja&quot;</code></pre>
+        <h1 id="面试题-02-01-移除重复节点"><a href="#面试题-02-01-移除重复节点" class="headerlink" title="面试题 02.01. 移除重复节点"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/remove-duplicate-node-lcci/">面试题 02.01. 移除重复节点</a></h1><p>难度简单65</p>
+<p>编写代码，移除未排序链表中的重复节点。保留最开始出现的节点。</p>
+<p><strong>示例1:</strong></p>
+<pre><code> 输入：[1, 2, 3, 3, 2, 1]
+ 输出：[1, 2, 3]</code></pre>
+<p><strong>示例2:</strong></p>
+<pre><code> 输入：[1, 1, 1, 1, 2]
+ 输出：[1, 2]</code></pre>
 <p><strong>提示：</strong></p>
-<ul>
-<li><code>1 &lt;= s.length &lt;= 100</code></li>
-<li><code>s</code> 仅包含小写英文字母和 <code>&#39;?&#39;</code> 字符</li>
-</ul>
-<p>通过次数5,305</p>
-<p>提交次数10,740</p>
-<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><pre><code class="java">class Solution &#123;
-    public String modifyString(String s) &#123;
-        char[] str = s.toCharArray();
-        char[] strList = &#123;&#39;a&#39;,&#39;b&#39;,&#39;c&#39;,&#39;d&#39;,&#39;e&#39;,&#39;f&#39;,&#39;g&#39;,&#39;g&#39;,&#39;i&#39;,&#39;j&#39;,&#39;k&#39;,&#39;l&#39;,
-                &#39;m&#39;,&#39;n&#39;,&#39;o&#39;,&#39;p&#39;,&#39;q&#39;,
-                &#39;r&#39;,&#39;s&#39;,&#39;t&#39;,&#39;u&#39;,&#39;v&#39;,&#39;w&#39;,&#39;x&#39;,&#39;y&#39;,&#39;z&#39;&#125;;
-        for( int i=0; i &lt; str.length; i++)&#123;
-            if(str[i] ==&#39;?&#39;)&#123;
-                char l;
-                char r;
-                if(i==0 )&#123;
-                    l =  &#39; &#39;;
-                &#125;else&#123;
-                    l = str[i-1];
-                &#125;
-                if(i == str.length-1 )&#123;
-                    r = &#39; &#39;;
-                &#125;else&#123;
-                    r = str[i+1];
-                &#125;
-                str[i] = &#39;a&#39;;
-                for(int j =1; j &lt; strList.length;j++)&#123;
-                    if( l == str[i] || r == str[i])&#123;
-                        str[i] = strList[j];
-                    &#125;else&#123;
-                        break;
-                    &#125;
-                &#125;
-            &#125;
-        &#125;
-        return new String(str);
-    &#125;
-&#125;</code></pre>
-<p>关键点：</p>
 <ol>
-<li>遍历的时候，主要将左右边界进行初始化判断</li>
-<li>对于<code>?</code>被替换的值，可以初始化为<code>a</code></li>
+<li>链表长度在[0, 20000]范围内。</li>
+<li>链表元素在[0, 20000]范围内。</li>
 </ol>
-<p>优化解法</p>
-<pre><code class="java">class Solution &#123;
-    public String modifyString(String s) &#123;
-        char[] chars = s.toCharArray();
+<p><strong>进阶：</strong></p>
+<p>如果不得使用临时缓冲区，该怎么解决？</p>
+<p>通过次数35,417</p>
+<p>提交次数50,758</p>
+<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><pre><code class="python"># Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
 
-        for (int i = 0; i &lt; chars.length; i++) &#123;
-            if (chars[i] == &#39;?&#39;) &#123;
-                //前面一个字符  如果当前是第0个的话 字符就为‘ ’
-                char ahead = i == 0 ? &#39; &#39; : chars[i - 1];
-                //后面一个字符  如果当前是最后一个的话 字符就为‘ ’
-                char behind  = i == chars.length - 1 ? &#39; &#39; : chars[i + 1];
-                //从a开始比较  如果对于前面或者后面的话 就+1
-                char temp = &#39;a&#39;;
-                while (temp == ahead || temp == behind ) &#123;
-                    temp++;
-                &#125;
-                //找到目标字符后 做替换
-                chars[i] = temp;
-            &#125;
-        &#125;
-        return new String(chars);
-    &#125;
-&#125;</code></pre>
+class Solution:
+    def removeDuplicateNodes(self, head: ListNode) -&gt; ListNode:
+        if not head : return None
+        ret = head
+        res = [head.val]
+        while head and head.next:
+            if head.next.val not in res:
+                res.append(head.next.val)
+                head = head.next
+            else:
+                head.next = head.next.next
+        return ret</code></pre>
+<p>注意点： 在移除重复的节点前， 先要把第一个结点的值放到list里面， 再判断下一个结点的值</p>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 jaytp@qq.com </span>
