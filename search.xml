@@ -4,6 +4,93 @@
   
     
     <entry>
+      <title>15. 三数之和</title>
+      <link href="2020/09/22/15.%20%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/"/>
+      <url>2020/09/22/15.%20%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/</url>
+      
+        <content type="html"><![CDATA[<h1 id="15-三数之和"><a href="#15-三数之和" class="headerlink" title="15. 三数之和"></a><a href="https://leetcode-cn.com/problems/3sum/">15. 三数之和</a></h1><p>难度中等2596</p><p>给你一个包含 <em>n</em> 个整数的数组 <code>nums</code>，判断 <code>nums</code> 中是否存在三个元素 <em>a，b，c ，</em>使得 <em>a + b + c =</em> 0 ？请你找出所有满足条件且不重复的三元组。</p><p><strong>注意：</strong>答案中不可以包含重复的三元组。</p><p><strong>示例：</strong></p><pre><code>给定数组 nums = [-1, 0, 1, 2, -1, -4]，满足要求的三元组集合为：[  [-1, 0, 1],  [-1, -1, 2]]</code></pre><p>通过次数330,688</p><p>提交次数1,119,900</p><h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><pre><code class="java">class Solution &#123;    public List&lt;List&lt;Integer&gt;&gt; threeSum(int[] nums) &#123;        List&lt;List&lt;Integer&gt;&gt; res = new ArrayList&lt;&gt;();        Arrays.sort(nums);        for(int i=0; i &lt; nums.length; i++)&#123;            int target = 0 - nums[i];            int left = i+1;            int right = nums.length-1;            if(nums[i] &gt;0) break; //如果当前的值都&gt;0，肯定不会再和其他的2个数相加为0            if(i==0 || nums[i] != nums[i-1])&#123; //相同数字去重                while( left &lt; right)&#123;                    if( nums[left] + nums[right] == target)&#123;                        List&lt;Integer&gt; temp = new ArrayList&lt;&gt;();                        temp.add(nums[i]);                        temp.add(nums[left]);                        temp.add(nums[right]);                        res.add(temp);                        //相同数字去重                        while(left&lt; right &amp;&amp; nums[left] == nums[left+1]) left++;                        while(left&lt; right &amp;&amp; nums[right] == nums[right-1]) right--;                        left++;                        right--;                    &#125;else if( nums[left] + nums[right] &gt; target)&#123;                        right--;                    &#125;else&#123;                        left++;                    &#125;                &#125;            &#125;        &#125;        return res;    &#125;&#125;</code></pre><p>注意去重， 相同数字直接略过</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+          <category> 数组 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> leetcode </tag>
+            
+            <tag> 二分法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>144. 二叉树的前序遍历</title>
+      <link href="2020/09/19/144.%20%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86/"/>
+      <url>2020/09/19/144.%20%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86/</url>
+      
+        <content type="html"><![CDATA[<h1 id="144-二叉树的前序遍历"><a href="#144-二叉树的前序遍历" class="headerlink" title="144. 二叉树的前序遍历"></a><a href="https://leetcode-cn.com/problems/binary-tree-preorder-traversal/">144. 二叉树的前序遍历</a></h1><p>难度中等367</p><p>给定一个二叉树，返回它的 <em>前序</em> 遍历。</p><p> <strong>示例:</strong></p><pre><code>输入: [1,null,2,3]     1    \     2    /   3 输出: [1,2,3]</code></pre><p><strong>进阶:</strong> 递归算法很简单，你可以通过迭代算法完成吗？</p><p>通过次数171,139</p><p>提交次数255,846</p><h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><pre><code class="java">/** * Definition for a binary tree node. * public class TreeNode &#123; *     int val; *     TreeNode left; *     TreeNode right; *     TreeNode(int x) &#123; val = x; &#125; * &#125; */class Solution &#123;    public List&lt;Integer&gt; preorderTraversal(TreeNode root) &#123;        LinkedList&lt;TreeNode&gt; stack = new LinkedList&lt;&gt;();        List&lt;Integer&gt; res = new ArrayList&lt;&gt;();        while( !stack.isEmpty() || root != null)&#123;            while(root!=null)&#123;                res.add(root.val);                stack.add(root);                root = root.left;            &#125;            TreeNode node = stack.pollLast();            root = node.right;        &#125;        return res;    &#125;&#125;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+          <category> 二叉树 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> leetcode </tag>
+            
+            <tag> dfs </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>14. 最长公共前缀</title>
+      <link href="2020/09/19/14.%20%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%89%8D%E7%BC%80/"/>
+      <url>2020/09/19/14.%20%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%89%8D%E7%BC%80/</url>
+      
+        <content type="html"><![CDATA[<h1 id="14-最长公共前缀"><a href="#14-最长公共前缀" class="headerlink" title="14. 最长公共前缀"></a><a href="https://leetcode-cn.com/problems/longest-common-prefix/">14. 最长公共前缀</a></h1><p>难度简单1271</p><p>编写一个函数来查找字符串数组中的最长公共前缀。</p><p>如果不存在公共前缀，返回空字符串 <code>&quot;&quot;</code>。</p><p><strong>示例 1:</strong></p><pre><code>输入: [&quot;flower&quot;,&quot;flow&quot;,&quot;flight&quot;]输出: &quot;fl&quot;</code></pre><p><strong>示例 2:</strong></p><pre><code>输入: [&quot;dog&quot;,&quot;racecar&quot;,&quot;car&quot;]输出: &quot;&quot;解释: 输入不存在公共前缀。</code></pre><p><strong>说明:</strong></p><p>所有输入只包含小写字母 <code>a-z</code> 。</p><p>通过次数362,784</p><p>提交次数935,793</p><h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><pre><code class="java">class Solution &#123;    public String longestCommonPrefix(String[] strs) &#123;        if(strs.length ==0) return &quot;&quot;;        String res = strs[0];        for(int i =1 ; i &lt; strs.length;i++)&#123;            int j =0;            for(;j &lt; res.length() &amp;&amp;  j &lt; strs[i].length(); j++)&#123;                if( res.charAt(j) != strs[i].charAt(j)) break;            &#125;            res = res.substring(0,j);            if (res.equals(&quot; &quot;)) return &quot; &quot;;        &#125;        return res;    &#125;&#125;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+          <category> 数组 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> leetcode </tag>
+            
+            <tag> 二分法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>11. 盛最多水的容器</title>
       <link href="2020/09/18/11.%20%E7%9B%9B%E6%9C%80%E5%A4%9A%E6%B0%B4%E7%9A%84%E5%AE%B9%E5%99%A8/"/>
       <url>2020/09/18/11.%20%E7%9B%9B%E6%9C%80%E5%A4%9A%E6%B0%B4%E7%9A%84%E5%AE%B9%E5%99%A8/</url>
@@ -294,7 +381,7 @@
       <link href="2020/09/14/1576.%20%E6%9B%BF%E6%8D%A2%E6%89%80%E6%9C%89%E7%9A%84%E9%97%AE%E5%8F%B7/"/>
       <url>2020/09/14/1576.%20%E6%9B%BF%E6%8D%A2%E6%89%80%E6%9C%89%E7%9A%84%E9%97%AE%E5%8F%B7/</url>
       
-        <content type="html"><![CDATA[<h1 id="1576-替换所有的问号"><a href="#1576-替换所有的问号" class="headerlink" title="1576. 替换所有的问号"></a><a href="https://leetcode-cn.com/problems/replace-all-s-to-avoid-consecutive-repeating-characters/">1576. 替换所有的问号</a></h1><p>难度简单5收藏分享切换为英文关注反馈</p><p>给你一个仅包含小写英文字母和 <code>&#39;?&#39;</code> 字符的字符串 <code>s</code>，请你将所有的 <code>&#39;?&#39;</code> 转换为若干小写字母，使最终的字符串不包含任何 <strong>连续重复</strong> 的字符。</p><p>注意：你 <strong>不能</strong> 修改非 <code>&#39;?&#39;</code> 字符。</p><p>题目测试用例保证 <strong>除</strong> <code>&#39;?&#39;</code> 字符 <strong>之外</strong>，不存在连续重复的字符。</p><p>在完成所有转换（可能无需转换）后返回最终的字符串。如果有多个解决方案，请返回其中任何一个。可以证明，在给定的约束条件下，答案总是存在的。</p><p><strong>示例 1：</strong></p><pre><code class="java">输入：s = &quot;?zs&quot;输出：&quot;azs&quot;解释：该示例共有 25 种解决方案，从 &quot;azs&quot; 到 &quot;yzs&quot; 都是符合题目要求的。只有 &quot;z&quot; 是无效的修改，因为字符串 &quot;zzs&quot; 中有连续重复的两个 &#39;z&#39; 。</code></pre><p><strong>示例 2：</strong></p><pre><code class="java">输入：s = &quot;ubv?w&quot;输出：&quot;ubvaw&quot;解释：该示例共有 24 种解决方案，只有替换成 &quot;v&quot; 和 &quot;w&quot; 不符合题目要求。因为 &quot;ubvvw&quot; 和 &quot;ubvww&quot; 都包含连续重复的字符。</code></pre><p><strong>示例 3：</strong></p><pre><code class="java">输入：s = &quot;j?qg??b&quot;输出：&quot;jaqgacb&quot;</code></pre><p><strong>示例 4：</strong></p><pre><code class="java">输入：s = &quot;??yw?ipkj?&quot;输出：&quot;acywaipkja&quot;</code></pre><p><strong>提示：</strong></p><ul><li><code>1 &lt;= s.length &lt;= 100</code></li><li><code>s</code> 仅包含小写英文字母和 <code>&#39;?&#39;</code> 字符</li></ul><p>通过次数5,305</p><p>提交次数10,740</p><h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><pre><code class="java">class Solution &#123;    public String modifyString(String s) &#123;        char[] str = s.toCharArray();        char[] strList = &#123;&#39;a&#39;,&#39;b&#39;,&#39;c&#39;,&#39;d&#39;,&#39;e&#39;,&#39;f&#39;,&#39;g&#39;,&#39;g&#39;,&#39;i&#39;,&#39;j&#39;,&#39;k&#39;,&#39;l&#39;,                &#39;m&#39;,&#39;n&#39;,&#39;o&#39;,&#39;p&#39;,&#39;q&#39;,                &#39;r&#39;,&#39;s&#39;,&#39;t&#39;,&#39;u&#39;,&#39;v&#39;,&#39;w&#39;,&#39;x&#39;,&#39;y&#39;,&#39;z&#39;&#125;;        for( int i=0; i &lt; str.length; i++)&#123;            if(str[i] ==&#39;?&#39;)&#123;                char l;                char r;                if(i==0 )&#123;                    l =  &#39; &#39;;                &#125;else&#123;                    l = str[i-1];                &#125;                if(i == str.length-1 )&#123;                    r = &#39; &#39;;                &#125;else&#123;                    r = str[i+1];                &#125;                str[i] = &#39;a&#39;;                for(int j =1; j &lt; strList.length;j++)&#123;                    if( l == str[i] || r == str[i])&#123;                        str[i] = strList[j];                    &#125;else&#123;                        break;                    &#125;                &#125;            &#125;        &#125;        return new String(str);    &#125;&#125;</code></pre><p>关键点：</p><ol><li>遍历的时候，主要将左右边界进行初始化判断</li><li>对于<code>?</code>被替换的值，可以初始化为<code>a</code></li></ol><p>优化解法</p><pre><code class="java">class Solution &#123;    public String modifyString(String s) &#123;        char[] chars = s.toCharArray();        for (int i = 0; i &lt; chars.length; i++) &#123;            if (chars[i] == &#39;?&#39;) &#123;                //前面一个字符  如果当前是第0个的话 字符就为‘ ’                char ahead = i == 0 ? &#39; &#39; : chars[i - 1];                //后面一个字符  如果当前是最后一个的话 字符就为‘ ’                char behind  = i == chars.length - 1 ? &#39; &#39; : chars[i + 1];                //从a开始比较  如果对于前面或者后面的话 就+1                char temp = &#39;a&#39;;                while (temp == ahead || temp == behind ) &#123;                    temp++;                &#125;                //找到目标字符后 做替换                chars[i] = temp;            &#125;        &#125;        return new String(chars);    &#125;&#125;</code></pre>]]></content>
+        <content type="html"><![CDATA[<h1 id="1576-替换所有的问号"><a href="#1576-替换所有的问号" class="headerlink" title="1576. 替换所有的问号"></a><a href="https://leetcode-cn.com/problems/replace-all-s-to-avoid-consecutive-repeating-characters/">1576. 替换所有的问号</a></h1><p>难度简单5收藏分享切换为英文关注反馈</p><p>给你一个仅包含小写英文字母和 <code>&#39;?&#39;</code> 字符的字符串 <code>s</code>，请你将所有的 <code>&#39;?&#39;</code> 转换为若干小写字母，使最终的字符串不包含任何 <strong>连续重复</strong> 的字符。</p><p>注意：你 <strong>不能</strong> 修改非 <code>&#39;?&#39;</code> 字符。</p><p>题目测试用例保证 <strong>除</strong> <code>&#39;?&#39;</code> 字符 <strong>之外</strong>，不存在连续重复的字符。</p><p>在完成所有转换（可能无需转换）后返回最终的字符串。如果有多个解决方案，请返回其中任何一个。可以证明，在给定的约束条件下，答案总是存在的。</p><p><strong>示例 1：</strong></p><pre><code class="java">输入：s = &quot;?zs&quot;输出：&quot;azs&quot;解释：该示例共有 25 种解决方案，从 &quot;azs&quot; 到 &quot;yzs&quot; 都是符合题目要求的。只有 &quot;z&quot; 是无效的修改，因为字符串 &quot;zzs&quot; 中有连续重复的两个 &#39;z&#39; 。</code></pre><p><strong>示例 2：</strong></p><pre><code class="java">输入：s = &quot;ubv?w&quot;输出：&quot;ubvaw&quot;解释：该示例共有 24 种解决方案，只有替换成 &quot;v&quot; 和 &quot;w&quot; 不符合题目要求。因为 &quot;ubvvw&quot; 和 &quot;ubvww&quot; 都包含连续重复的字符。</code></pre><p><strong>示例 3：</strong></p><pre><code class="java">输入：s = &quot;j?qg??b&quot;输出：&quot;jaqgacb&quot;</code></pre><p><strong>示例 4：</strong></p><pre><code class="java">输入：s = &quot;??yw?ipkj?&quot;输出：&quot;acywaipkja&quot;</code></pre><p><strong>提示：</strong></p><ul><li><code>1 &lt;= s.length &lt;= 100</code></li><li><code>s</code> 仅包含小写英文字母和 <code>&#39;?&#39;</code> 字符</li></ul><p>通过次数5,305</p><p>提交次数10,740</p><h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><pre><code class="java">class Solution &#123;    public String modifyString(String s) &#123;        char[] str = s.toCharArray();        char[] strList = &#123;&#39;a&#39;,&#39;b&#39;,&#39;c&#39;,&#39;d&#39;,&#39;e&#39;,&#39;f&#39;,&#39;g&#39;,&#39;g&#39;,&#39;i&#39;,&#39;j&#39;,&#39;k&#39;,&#39;l&#39;,                &#39;m&#39;,&#39;n&#39;,&#39;o&#39;,&#39;p&#39;,&#39;q&#39;,                &#39;r&#39;,&#39;s&#39;,&#39;t&#39;,&#39;u&#39;,&#39;v&#39;,&#39;w&#39;,&#39;x&#39;,&#39;y&#39;,&#39;z&#39;&#125;;        for( int i=0; i &lt; str.length; i++)&#123;            if(str[i] ==&#39;?&#39;)&#123;                char l;                char r;                if(i==0 )&#123;                    l =  &#39; &#39;;                &#125;else&#123;                    l = str[i-1];                &#125;                if(i == str.length-1 )&#123;                    r = &#39; &#39;;                &#125;else&#123;                    r = str[i+1];                &#125;                str[i] = &#39;a&#39;;                for(int j =1; j &lt; strList.length;j++)&#123;                    if( l == str[i] || r == str[i])&#123;                        str[i] = strList[j];                    &#125;else&#123;                        break;                    &#125;                &#125;            &#125;        &#125;        return new String(str);    &#125;&#125;</code></pre><p>关键点：</p><ol><li>遍历的时候，主要将左右边界进行初始化判断</li><li>对于<code>?</code>被替换的值，可以初始化为<code>a</code></li></ol><p>优化解法</p><pre><code class="java">class Solution &#123;    public String modifyString(String s) &#123;        char[] chars = s.toCharArray();        for (int i = 0; i &lt; chars.length; i++) &#123;            if (chars[i] == &#39;?&#39;) &#123;                //前面一个字符  如果当前是第0个的话 字符就为‘ ’                char ahead = i == 0 ? &#39; &#39; : chars[i - 1];                //后面一个字符  如果当前是最后一个的话 字符就为‘ ’                char behind  = i == chars.length - 1 ? &#39; &#39; : chars[i + 1];                //从a开始比较  如果对于前面或者后面的话 就+1                char temp = &#39;a&#39;;                while (temp == ahead || temp == behind ) &#123;                    temp++;                &#125;                //找到目标字符后 做替换                chars[i] = temp;            &#125;        &#125;        return new String(chars);    &#125;&#125;</code></pre><p>在String前后添加占位字符</p><pre><code class="java">class Solution &#123;    public String modifyString(String s) &#123;        char[] str = (&#39;0&#39; + s +&#39;0&#39;).toCharArray();        for(int i =1;i &lt; str.length-1 ;i++)&#123;            if(str[i] ==&#39;?&#39;)&#123;                char left = str[i-1];                char right = str[i+1];                char temp = &#39;a&#39;;                while( left== temp || right == temp) temp++;                str[i] = temp;            &#125;        &#125;        return new String(str,1,str.length-2);    &#125;&#125;</code></pre>]]></content>
       
       
       <categories>
