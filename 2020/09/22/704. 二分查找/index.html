@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>225. 用队列实现栈 | Hexo</title>
-  <meta name="keywords" content=" leetcode , 栈 ">
-  <meta name="description" content="225. 用队列实现栈 | Hexo">
+  <title>704. 二分查找 | Hexo</title>
+  <meta name="keywords" content=" leetcode , 二分查找 ">
+  <meta name="description" content="704. 二分查找 | Hexo">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="关于我一个程序员">
 <meta property="og:type" content="website">
@@ -405,9 +405,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-225. 用队列实现栈" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-704. 二分查找" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">225. 用队列实现栈</h1>
+        <h1 class="article-title">704. 二分查找</h1>
     
     <div class="article-meta">
         
@@ -419,7 +419,7 @@
             
             <a  data-rel="算法">算法</a> > 
             
-            <a  data-rel="算法&lt;---&gt;栈，队列">栈，队列</a>
+            <a  data-rel="算法&lt;---&gt;数组">数组</a>
             
         </span>
         
@@ -429,19 +429,19 @@
             
             <a class="color4">leetcode</a>
             
-            <a class="color2">栈</a>
+            <a class="color5">二分查找</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2020-09-14 23:40:25'>2020-09-14 23:15</time>
+            Created At : <time class="date" title='Updated At: 2020-09-22 23:15:40'>2020-09-22 23:13</time>
         
     </div>
     <div class="article-meta">
         
-        <span>Count:386</span>
+        <span>Count:273</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -471,7 +471,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#225-%E7%94%A8%E9%98%9F%E5%88%97%E5%AE%9E%E7%8E%B0%E6%A0%88"><span class="toc-text">225. 用队列实现栈</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A2%98%E8%A7%A3"><span class="toc-text">题解</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#704-%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE"><span class="toc-text">704. 二分查找</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A2%98%E8%A7%A3"><span class="toc-text">题解</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -487,76 +487,53 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="225-用队列实现栈"><a href="#225-用队列实现栈" class="headerlink" title="225. 用队列实现栈"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/implement-stack-using-queues/">225. 用队列实现栈</a></h1><p>难度简单223收藏分享切换为英文关注反馈</p>
-<p>使用队列实现栈的下列操作：</p>
-<ul>
-<li>push(x) – 元素 x 入栈</li>
-<li>pop() – 移除栈顶元素</li>
-<li>top() – 获取栈顶元素</li>
-<li>empty() – 返回栈是否为空</li>
-</ul>
-<p><strong>注意:</strong></p>
-<ul>
-<li>你只能使用队列的基本操作– 也就是 <code>push to back</code>, <code>peek/pop from front</code>, <code>size</code>, 和 <code>is empty</code> 这些操作是合法的。</li>
-<li>你所使用的语言也许不支持队列。 你可以使用 list 或者 deque（双端队列）来模拟一个队列 , 只要是标准的队列操作即可。</li>
-<li>你可以假设所有操作都是有效的（例如, 对一个空的栈不会调用 pop 或者 top 操作）。</li>
-</ul>
-<p>通过次数72,158</p>
-<p>提交次数110,101</p>
-<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><pre><code class="java">class MyStack &#123;
-    LinkedList&lt;Integer&gt; queue1 = new LinkedList&lt;&gt;();
-    LinkedList&lt;Integer&gt; queue2 = new LinkedList&lt;&gt;();
-    /** Initialize your data structure here. */
-    public MyStack() &#123;
-
-    &#125;
-
-    /** Push element x onto stack. */
-    public void push(int x) &#123;
-        queue1.add(x);
-    &#125;
-
-    /** Removes the element on top of the stack and returns that element. */
-    public int pop() &#123;
-        while(queue1.size() &gt;1)&#123;
-            queue2.add(queue1.pollFirst());
+        <h1 id="704-二分查找"><a href="#704-二分查找" class="headerlink" title="704. 二分查找"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/binary-search/">704. 二分查找</a></h1><p>难度简单158</p>
+<p>给定一个 <code>n</code> 个元素有序的（升序）整型数组 <code>nums</code> 和一个目标值 <code>target</code> ，写一个函数搜索 <code>nums</code> 中的 <code>target</code>，如果目标值存在返回下标，否则返回 <code>-1</code>。</p>
+<p><strong>示例 1:</strong></p>
+<pre><code>输入: nums = [-1,0,3,5,9,12], target = 9
+输出: 4
+解释: 9 出现在 nums 中并且下标为 4</code></pre>
+<p><strong>示例 2:</strong></p>
+<pre><code>输入: nums = [-1,0,3,5,9,12], target = 2
+输出: -1
+解释: 2 不存在 nums 中因此返回 -1</code></pre>
+<p><strong>提示：</strong></p>
+<ol>
+<li>你可以假设 <code>nums</code> 中的所有元素是不重复的。</li>
+<li><code>n</code> 将在 <code>[1, 10000]</code>之间。</li>
+<li><code>nums</code> 的每个元素都将在 <code>[-9999, 9999]</code>之间。</li>
+</ol>
+<p>通过次数68,350</p>
+<p>提交次数124,083</p>
+<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><pre><code class="java">class Solution &#123;
+    public int search(int[] nums, int target) &#123;
+        int left = 0;
+        int right = nums.length;
+        while(left &lt; right)&#123;
+            int mid = left + (right - left)/2;
+            if( nums[mid] &gt; target)&#123;
+                right = mid;
+            &#125;else if(nums[mid] &lt; target)&#123;
+                left = mid+1;
+            &#125;else&#123;
+                return mid;
+            &#125;
         &#125;
-        Integer ret = queue1.pollFirst();
-        while(!queue2.isEmpty())&#123;
-            queue1.add(queue2.pollFirst());
-        &#125;
-        return ret;
+        return -1;
     &#125;
-
-    /** Get the top element. */
-    public int top() &#123;
-        while(queue1.size() &gt;1)&#123;
-            queue2.add(queue1.pollFirst());
-        &#125;
-        Integer ret = queue1.peekFirst();
-        queue2.add(queue1.pollFirst());
-        while(!queue2.isEmpty())&#123;
-            queue1.add(queue2.pollFirst());
-        &#125;
-        return ret;
-    &#125;
-
-    /** Returns whether the stack is empty. */
-    public boolean empty() &#123;
-        return queue1.isEmpty();
+&#125;</code></pre>
+<p>模板</p>
+<pre><code class="java">int left = 0;
+int right = num.length;
+while(left &lt; right)&#123;
+    int mid = left + (right - left)/2;
+    if(nums[mid] &lt; target)&#123;
+        left = mid+1;
+    &#125;else&#123;
+        right = mid
     &#125;
 &#125;
-
-/**
- * Your MyStack object will be instantiated and called as such:
- * MyStack obj = new MyStack();
- * obj.push(x);
- * int param_2 = obj.pop();
- * int param_3 = obj.top();
- * boolean param_4 = obj.empty();
- */</code></pre>
-<p>利用双队列来模拟栈</p>
-<p>注意点， 始终保持queue1为主队列</p>
+return left;</code></pre>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 jaytp@qq.com </span>
