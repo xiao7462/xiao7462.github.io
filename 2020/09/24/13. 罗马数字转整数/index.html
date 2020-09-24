@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>1576. 替换所有的问号 | Hexo</title>
-  <meta name="keywords" content=" leetcode , 字符串 ">
-  <meta name="description" content="1576. 替换所有的问号 | Hexo">
+  <title>13. 罗马数字转整数 | Hexo</title>
+  <meta name="keywords" content=" leetcode , hash ">
+  <meta name="description" content="13. 罗马数字转整数 | Hexo">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="关于我一个程序员">
 <meta property="og:type" content="website">
@@ -425,9 +425,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-1576. 替换所有的问号" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-13. 罗马数字转整数" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">1576. 替换所有的问号</h1>
+        <h1 class="article-title">13. 罗马数字转整数</h1>
     
     <div class="article-meta">
         
@@ -449,19 +449,19 @@
             
             <a class="color4">leetcode</a>
             
-            <a class="color4">字符串</a>
+            <a class="color5">hash</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2020-09-20 00:00:44'>2020-09-14 23:02</time>
+            Created At : <time class="date" title='Updated At: 2020-09-24 22:10:16'>2020-09-24 22:09</time>
         
     </div>
     <div class="article-meta">
         
-        <span>Count:845</span>
+        <span>Count:548</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -491,7 +491,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1576-%E6%9B%BF%E6%8D%A2%E6%89%80%E6%9C%89%E7%9A%84%E9%97%AE%E5%8F%B7"><span class="toc-text">1576. 替换所有的问号</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A2%98%E8%A7%A3"><span class="toc-text">题解</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#13-%E7%BD%97%E9%A9%AC%E6%95%B0%E5%AD%97%E8%BD%AC%E6%95%B4%E6%95%B0"><span class="toc-text">13. 罗马数字转整数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A2%98%E8%A7%A3"><span class="toc-text">题解</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -507,110 +507,68 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="1576-替换所有的问号"><a href="#1576-替换所有的问号" class="headerlink" title="1576. 替换所有的问号"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/replace-all-s-to-avoid-consecutive-repeating-characters/">1576. 替换所有的问号</a></h1><p>难度简单5收藏分享切换为英文关注反馈</p>
-<p>给你一个仅包含小写英文字母和 <code>&#39;?&#39;</code> 字符的字符串 <code>s</code>，请你将所有的 <code>&#39;?&#39;</code> 转换为若干小写字母，使最终的字符串不包含任何 <strong>连续重复</strong> 的字符。</p>
-<p>注意：你 <strong>不能</strong> 修改非 <code>&#39;?&#39;</code> 字符。</p>
-<p>题目测试用例保证 <strong>除</strong> <code>&#39;?&#39;</code> 字符 <strong>之外</strong>，不存在连续重复的字符。</p>
-<p>在完成所有转换（可能无需转换）后返回最终的字符串。如果有多个解决方案，请返回其中任何一个。可以证明，在给定的约束条件下，答案总是存在的。</p>
-<p><strong>示例 1：</strong></p>
-<pre><code class="java">输入：s = &quot;?zs&quot;
-输出：&quot;azs&quot;
-解释：该示例共有 25 种解决方案，从 &quot;azs&quot; 到 &quot;yzs&quot; 都是符合题目要求的。只有 &quot;z&quot; 是无效的修改，因为字符串 &quot;zzs&quot; 中有连续重复的两个 &#39;z&#39; 。</code></pre>
-<p><strong>示例 2：</strong></p>
-<pre><code class="java">输入：s = &quot;ubv?w&quot;
-输出：&quot;ubvaw&quot;
-解释：该示例共有 24 种解决方案，只有替换成 &quot;v&quot; 和 &quot;w&quot; 不符合题目要求。因为 &quot;ubvvw&quot; 和 &quot;ubvww&quot; 都包含连续重复的字符。</code></pre>
-<p><strong>示例 3：</strong></p>
-<pre><code class="java">输入：s = &quot;j?qg??b&quot;
-输出：&quot;jaqgacb&quot;</code></pre>
-<p><strong>示例 4：</strong></p>
-<pre><code class="java">输入：s = &quot;??yw?ipkj?&quot;
-输出：&quot;acywaipkja&quot;</code></pre>
+        <h1 id="13-罗马数字转整数"><a href="#13-罗马数字转整数" class="headerlink" title="13. 罗马数字转整数"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/roman-to-integer/">13. 罗马数字转整数</a></h1><p>难度简单1051</p>
+<p>罗马数字包含以下七种字符: <code>I</code>， <code>V</code>， <code>X</code>， <code>L</code>，<code>C</code>，<code>D</code> 和 <code>M</code>。</p>
+<pre><code class="java">字符          数值
+I             1
+V             5
+X             10
+L             50
+C             100
+D             500
+M             1000</code></pre>
+<p>例如， 罗马数字 2 写做 <code>II</code> ，即为两个并列的 1。12 写做 <code>XII</code> ，即为 <code>X</code> + <code>II</code> 。 27 写做 <code>XXVII</code>, 即为 <code>XX</code> + <code>V</code> + <code>II</code> 。</p>
+<p>通常情况下，罗马数字中小的数字在大的数字的右边。但也存在特例，例如 4 不写做 <code>IIII</code>，而是 <code>IV</code>。数字 1 在数字 5 的左边，所表示的数等于大数 5 减小数 1 得到的数值 4 。同样地，数字 9 表示为 <code>IX</code>。这个特殊的规则只适用于以下六种情况：</p>
+<ul>
+<li><code>I</code> 可以放在 <code>V</code> (5) 和 <code>X</code> (10) 的左边，来表示 4 和 9。</li>
+<li><code>X</code> 可以放在 <code>L</code> (50) 和 <code>C</code> (100) 的左边，来表示 40 和 90。 </li>
+<li><code>C</code> 可以放在 <code>D</code> (500) 和 <code>M</code> (1000) 的左边，来表示 400 和 900。</li>
+</ul>
+<p>给定一个罗马数字，将其转换成整数。输入确保在 1 到 3999 的范围内。</p>
+<p><strong>示例 1:</strong></p>
+<pre><code class="java">输入: &quot;III&quot;
+输出: 3</code></pre>
+<p><strong>示例 2:</strong></p>
+<pre><code class="java">输入: &quot;IV&quot;
+输出: 4</code></pre>
+<p><strong>示例 3:</strong></p>
+<pre><code class="java">输入: &quot;IX&quot;
+输出: 9</code></pre>
+<p><strong>示例 4:</strong></p>
+<pre><code class="java">输入: &quot;LVIII&quot;
+输出: 58
+解释: L = 50, V= 5, III = 3.</code></pre>
+<p><strong>示例 5:</strong></p>
+<pre><code class="java">输入: &quot;MCMXCIV&quot;
+输出: 1994
+解释: M = 1000, CM = 900, XC = 90, IV = 4.</code></pre>
 <p><strong>提示：</strong></p>
 <ul>
-<li><code>1 &lt;= s.length &lt;= 100</code></li>
-<li><code>s</code> 仅包含小写英文字母和 <code>&#39;?&#39;</code> 字符</li>
+<li>题目所给测试用例皆符合罗马数字书写规则，不会出现跨位等情况。</li>
+<li>IC 和 IM 这样的例子并不符合题目要求，49 应该写作 XLIX，999 应该写作 CMXCIX 。</li>
+<li>关于罗马数字的详尽书写规则，可以参考 <a target="_blank" rel="noopener" href="https://b2b.partcommunity.com/community/knowledge/zh_CN/detail/10753/%E7%BD%97%E9%A9%AC%E6%95%B0%E5%AD%97#knowledge_article">罗马数字 - Mathematics </a>。</li>
 </ul>
-<p>通过次数5,305</p>
-<p>提交次数10,740</p>
+<p>通过次数260,364</p>
+<p>提交次数419,352</p>
 <h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><pre><code class="java">class Solution &#123;
-    public String modifyString(String s) &#123;
-        char[] str = s.toCharArray();
-        char[] strList = &#123;&#39;a&#39;,&#39;b&#39;,&#39;c&#39;,&#39;d&#39;,&#39;e&#39;,&#39;f&#39;,&#39;g&#39;,&#39;g&#39;,&#39;i&#39;,&#39;j&#39;,&#39;k&#39;,&#39;l&#39;,
-                &#39;m&#39;,&#39;n&#39;,&#39;o&#39;,&#39;p&#39;,&#39;q&#39;,
-                &#39;r&#39;,&#39;s&#39;,&#39;t&#39;,&#39;u&#39;,&#39;v&#39;,&#39;w&#39;,&#39;x&#39;,&#39;y&#39;,&#39;z&#39;&#125;;
-        for( int i=0; i &lt; str.length; i++)&#123;
-            if(str[i] ==&#39;?&#39;)&#123;
-                char l;
-                char r;
-                if(i==0 )&#123;
-                    l =  &#39; &#39;;
-                &#125;else&#123;
-                    l = str[i-1];
-                &#125;
-                if(i == str.length-1 )&#123;
-                    r = &#39; &#39;;
-                &#125;else&#123;
-                    r = str[i+1];
-                &#125;
-                str[i] = &#39;a&#39;;
-                for(int j =1; j &lt; strList.length;j++)&#123;
-                    if( l == str[i] || r == str[i])&#123;
-                        str[i] = strList[j];
-                    &#125;else&#123;
-                        break;
-                    &#125;
-                &#125;
+    public int romanToInt(String s) &#123;
+        HashMap&lt;Character, Integer&gt; m = new HashMap&lt;&gt;();
+        m.put(&#39;I&#39;,1);
+        m.put(&#39;V&#39;,5);
+        m.put(&#39;X&#39;,10);
+        m.put(&#39;L&#39;,50);
+        m.put(&#39;C&#39;,100);
+        m.put(&#39;D&#39;,500);
+        m.put(&#39;M&#39;,1000);
+        int res = m.get( s.charAt( s.length()-1));
+        for(int i = s.length()-2; i&gt;=0;i--)&#123;
+            if( m.get( s.charAt(i)) &lt; m.get( s.charAt(i+1)))&#123;
+                res -= m.get( s.charAt(i));
+            &#125;else&#123;
+                res += m.get( s.charAt(i));
             &#125;
         &#125;
-        return new String(str);
-    &#125;
-&#125;</code></pre>
-<p>关键点：</p>
-<ol>
-<li>遍历的时候，主要将左右边界进行初始化判断</li>
-<li>对于<code>?</code>被替换的值，可以初始化为<code>a</code></li>
-</ol>
-<p>优化解法</p>
-<pre><code class="java">class Solution &#123;
-    public String modifyString(String s) &#123;
-        char[] chars = s.toCharArray();
-
-        for (int i = 0; i &lt; chars.length; i++) &#123;
-            if (chars[i] == &#39;?&#39;) &#123;
-                //前面一个字符  如果当前是第0个的话 字符就为‘ ’
-                char ahead = i == 0 ? &#39; &#39; : chars[i - 1];
-                //后面一个字符  如果当前是最后一个的话 字符就为‘ ’
-                char behind  = i == chars.length - 1 ? &#39; &#39; : chars[i + 1];
-                //从a开始比较  如果对于前面或者后面的话 就+1
-                char temp = &#39;a&#39;;
-                while (temp == ahead || temp == behind ) &#123;
-                    temp++;
-                &#125;
-                //找到目标字符后 做替换
-                chars[i] = temp;
-            &#125;
-        &#125;
-        return new String(chars);
-    &#125;
-&#125;</code></pre>
-<p>在String前后添加占位字符</p>
-<pre><code class="java">class Solution &#123;
-    public String modifyString(String s) &#123;
-        char[] str = (&#39;0&#39; + s +&#39;0&#39;).toCharArray();
-        for(int i =1;i &lt; str.length-1 ;i++)&#123;
-            if(str[i] ==&#39;?&#39;)&#123;
-                char left = str[i-1];
-                char right = str[i+1];
-                char temp = &#39;a&#39;;
-                while( left== temp || right == temp) temp++;
-                str[i] = temp;
-            &#125;
-
-        &#125;
-
-        return new String(str,1,str.length-2);
-
+        return res;
     &#125;
 &#125;</code></pre>
 
