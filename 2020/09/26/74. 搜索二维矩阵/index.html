@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>225. 用队列实现栈 | Hexo</title>
-  <meta name="keywords" content=" leetcode , 栈 ">
-  <meta name="description" content="225. 用队列实现栈 | Hexo">
+  <title>74. 搜索二维矩阵 | Hexo</title>
+  <meta name="keywords" content=" leetcode , 二分搜索 ">
+  <meta name="description" content="74. 搜索二维矩阵 | Hexo">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="关于我一个程序员">
 <meta property="og:type" content="website">
@@ -461,9 +461,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-225. 用队列实现栈" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-74. 搜索二维矩阵" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">225. 用队列实现栈</h1>
+        <h1 class="article-title">74. 搜索二维矩阵</h1>
     
     <div class="article-meta">
         
@@ -475,7 +475,7 @@
             
             <a  data-rel="算法">算法</a> > 
             
-            <a  data-rel="算法&lt;---&gt;栈，队列">栈，队列</a>
+            <a  data-rel="算法&lt;---&gt;矩阵">矩阵</a>
             
         </span>
         
@@ -485,19 +485,19 @@
             
             <a class="color4">leetcode</a>
             
-            <a class="color2">栈</a>
+            <a class="color5">二分搜索</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2020-09-14 23:40:25'>2020-09-14 23:15</time>
+            Created At : <time class="date" title='Updated At: 2020-09-26 12:11:09'>2020-09-26 12:02</time>
         
     </div>
     <div class="article-meta">
         
-        <span>Count:386</span>
+        <span>Count:348</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -527,7 +527,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#225-%E7%94%A8%E9%98%9F%E5%88%97%E5%AE%9E%E7%8E%B0%E6%A0%88"><span class="toc-text">225. 用队列实现栈</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A2%98%E8%A7%A3"><span class="toc-text">题解</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#74-%E6%90%9C%E7%B4%A2%E4%BA%8C%E7%BB%B4%E7%9F%A9%E9%98%B5"><span class="toc-text">74. 搜索二维矩阵</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A2%98%E8%A7%A3"><span class="toc-text">题解</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -543,76 +543,85 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="225-用队列实现栈"><a href="#225-用队列实现栈" class="headerlink" title="225. 用队列实现栈"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/implement-stack-using-queues/">225. 用队列实现栈</a></h1><p>难度简单223收藏分享切换为英文关注反馈</p>
-<p>使用队列实现栈的下列操作：</p>
+        <h1 id="74-搜索二维矩阵"><a href="#74-搜索二维矩阵" class="headerlink" title="74. 搜索二维矩阵"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/search-a-2d-matrix/">74. 搜索二维矩阵</a></h1><p>难度中等249</p>
+<p>编写一个高效的算法来判断 <em>m</em> x <em>n</em> 矩阵中，是否存在一个目标值。该矩阵具有如下特性：</p>
 <ul>
-<li>push(x) – 元素 x 入栈</li>
-<li>pop() – 移除栈顶元素</li>
-<li>top() – 获取栈顶元素</li>
-<li>empty() – 返回栈是否为空</li>
+<li>每行中的整数从左到右按升序排列。</li>
+<li>每行的第一个整数大于前一行的最后一个整数。</li>
 </ul>
-<p><strong>注意:</strong></p>
-<ul>
-<li>你只能使用队列的基本操作– 也就是 <code>push to back</code>, <code>peek/pop from front</code>, <code>size</code>, 和 <code>is empty</code> 这些操作是合法的。</li>
-<li>你所使用的语言也许不支持队列。 你可以使用 list 或者 deque（双端队列）来模拟一个队列 , 只要是标准的队列操作即可。</li>
-<li>你可以假设所有操作都是有效的（例如, 对一个空的栈不会调用 pop 或者 top 操作）。</li>
-</ul>
-<p>通过次数72,158</p>
-<p>提交次数110,101</p>
-<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><pre><code class="java">class MyStack &#123;
-    LinkedList&lt;Integer&gt; queue1 = new LinkedList&lt;&gt;();
-    LinkedList&lt;Integer&gt; queue2 = new LinkedList&lt;&gt;();
-    /** Initialize your data structure here. */
-    public MyStack() &#123;
-
-    &#125;
-
-    /** Push element x onto stack. */
-    public void push(int x) &#123;
-        queue1.add(x);
-    &#125;
-
-    /** Removes the element on top of the stack and returns that element. */
-    public int pop() &#123;
-        while(queue1.size() &gt;1)&#123;
-            queue2.add(queue1.pollFirst());
+<p><strong>示例 1:</strong></p>
+<pre><code class="java">输入:
+matrix = [
+  [1,   3,  5,  7],
+  [10, 11, 16, 20],
+  [23, 30, 34, 50]
+]
+target = 3
+输出: true</code></pre>
+<p><strong>示例 2:</strong></p>
+<pre><code class="java">输入:
+matrix = [
+  [1,   3,  5,  7],
+  [10, 11, 16, 20],
+  [23, 30, 34, 50]
+]
+target = 13
+输出: false</code></pre>
+<p>通过次数63,695</p>
+<p>提交次数163,381</p>
+<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><pre><code class="java">class Solution &#123;
+    public boolean searchMatrix(int[][] matrix, int target) &#123;
+        if (matrix.length == 0) &#123;
+            return false;
         &#125;
-        Integer ret = queue1.pollFirst();
-        while(!queue2.isEmpty())&#123;
-            queue1.add(queue2.pollFirst());
+        if (matrix[0].length == 0) &#123;
+            return false;
         &#125;
-        return ret;
+        if (matrix[0][0] == target) &#123;
+            return true;
+        &#125;
+        int row = matrix.length;;
+        int col = matrix[0].length;
+        if( target &lt; matrix[0][0] || target &gt; matrix[row-1][col-1]) return false;
+        //查找行
+        List&lt;Integer&gt; row_temp = new ArrayList&lt;&gt;();
+        for(int i =0; i &lt; row; i++)&#123;
+            row_temp.add(matrix[i][0]);
+        &#125;
+        int l = 0;
+        int r = row_temp.size();
+        while( l &lt; r)&#123;
+            int mid = l + ( r - l)/2;
+            if(row_temp.get(mid) == target) return true;
+            else if( row_temp.get(mid) &gt; target)&#123;
+                r--;
+            &#125;else&#123;
+                l++;
+            &#125;
+        &#125;
+        //查找列
+        List&lt;Integer&gt; col_temp = new ArrayList&lt;&gt;();
+        for(int i = 0; i &lt; col; i++)&#123;
+            col_temp.add(matrix[l-1][i]);
+        &#125;
+        int col_l = 0;
+        int col_r = col_temp.size();
+        while( col_l &lt; col_r)&#123;
+            int col_mid = col_l + (col_r - col_l)/2;
+            if( target == col_temp.get(col_mid))&#123;
+                return true;
+            &#125;
+            else if(col_temp.get(col_mid) &lt; target  )&#123;
+                col_l = col_mid+1;
+            &#125;else&#123;
+                col_r = col_mid;
+            &#125;
+        &#125;
+        return false;
     &#125;
 
-    /** Get the top element. */
-    public int top() &#123;
-        while(queue1.size() &gt;1)&#123;
-            queue2.add(queue1.pollFirst());
-        &#125;
-        Integer ret = queue1.peekFirst();
-        queue2.add(queue1.pollFirst());
-        while(!queue2.isEmpty())&#123;
-            queue1.add(queue2.pollFirst());
-        &#125;
-        return ret;
-    &#125;
 
-    /** Returns whether the stack is empty. */
-    public boolean empty() &#123;
-        return queue1.isEmpty();
-    &#125;
-&#125;
-
-/**
- * Your MyStack object will be instantiated and called as such:
- * MyStack obj = new MyStack();
- * obj.push(x);
- * int param_2 = obj.pop();
- * int param_3 = obj.top();
- * boolean param_4 = obj.empty();
- */</code></pre>
-<p>利用双队列来模拟栈</p>
-<p>注意点， 始终保持queue1为主队列</p>
+&#125;</code></pre>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 jaytp@qq.com </span>
