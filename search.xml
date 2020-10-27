@@ -4,6 +4,238 @@
   
     
     <entry>
+      <title>867. 转置矩阵</title>
+      <link href="2020/10/27/867.%20%E8%BD%AC%E7%BD%AE%E7%9F%A9%E9%98%B5/"/>
+      <url>2020/10/27/867.%20%E8%BD%AC%E7%BD%AE%E7%9F%A9%E9%98%B5/</url>
+      
+        <content type="html"><![CDATA[<h1 id="867-转置矩阵"><a href="#867-转置矩阵" class="headerlink" title="867. 转置矩阵"></a><a href="https://leetcode-cn.com/problems/transpose-matrix/">867. 转置矩阵</a></h1><p>难度简单116</p><p>给定一个矩阵 <code>A</code>， 返回 <code>A</code> 的转置矩阵。</p><p>矩阵的转置是指将矩阵的主对角线翻转，交换矩阵的行索引与列索引。</p><p><strong>示例 1：</strong></p><pre><code class="java">输入：[[1,2,3],[4,5,6],[7,8,9]]输出：[[1,4,7],[2,5,8],[3,6,9]]</code></pre><p><strong>示例 2：</strong></p><pre><code class="java">输入：[[1,2,3],[4,5,6]]输出：[[1,4],[2,5],[3,6]]</code></pre><p><strong>提示：</strong></p><ol><li><code>1 &lt;= A.length &lt;= 1000</code></li><li><code>1 &lt;= A[0].length &lt;= 1000</code></li></ol><p>通过次数30,523</p><p>提交次数45,314</p><h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><pre><code class="java">class Solution &#123;    public int[][] transpose(int[][] A) &#123;        int m = A.length;        int n = A[0].length;        int[][] arr = new int[n][m];        //选取第一列        for(int i =0; i &lt; m; i++)&#123;            for( int j = 0; j &lt; n; j++)&#123;                arr[j][i] = A[i][j];             &#125;        &#125;        return arr;    &#125;&#125;</code></pre><p>只要记住，  当前要转换数字的位置 与 转换后的位置  之间的关系， 就可以得出它们之间的转换关系。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+          <category> 数组 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> leetcode </tag>
+            
+            <tag> 数组 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>77. 组合</title>
+      <link href="2020/10/18/77.%20%E7%BB%84%E5%90%88/"/>
+      <url>2020/10/18/77.%20%E7%BB%84%E5%90%88/</url>
+      
+        <content type="html"><![CDATA[<h1 id="77-组合"><a href="#77-组合" class="headerlink" title="77. 组合"></a><a href="https://leetcode-cn.com/problems/combinations/">77. 组合</a></h1><p>难度中等416收藏分享切换为英文接收动态反馈</p><p>给定两个整数 <em>n</em> 和 <em>k</em>，返回 1 … <em>n</em> 中所有可能的 <em>k</em> 个数的组合。</p><p><strong>示例:</strong></p><pre><code class="java">输入: n = 4, k = 2输出:[  [2,4],  [3,4],  [2,3],  [1,2],  [1,3],  [1,4],]</code></pre><p>通过次数109,730</p><p>提交次数144,781</p><h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><pre><code class="java">class Solution &#123;    public List&lt;List&lt;Integer&gt;&gt; combine(int n, int k) &#123;        List&lt;List&lt;Integer&gt;&gt; res = new LinkedList&lt;&gt;();        if( k &lt;=0 || n &lt; k) return res;        traceBack(n, k, 1, new LinkedList&lt;Integer&gt;(), res);        return res;    &#125;    void traceBack(int n , int k,int start, LinkedList&lt;Integer&gt; temp, List&lt;List&lt;Integer&gt;&gt; res)&#123;        if( temp.size() == k)&#123;            res.add(new LinkedList&lt;&gt;(temp));            return;        &#125;        for(int i =start; i &lt;= n; i++)&#123;            temp.add(i);            traceBack(n, k,i+1, temp, res );            temp.pollLast();        &#125;    &#125;&#125;</code></pre><p>如果组合里有 1 ，那么需要在 [2, 3, 4] 里再找 11 个数；<br>如果组合里有 2 ，那么需要在 [3, 4] 里再找 11数。注意：这里不能再考虑 11，因为包含 11 的组合，在第 1 种情况中已经包含。</p><p>作者：liweiwei1419<br>链接：<a href="https://leetcode-cn.com/problems/combinations/solution/hui-su-suan-fa-jian-zhi-python-dai-ma-java-dai-ma-/">https://leetcode-cn.com/problems/combinations/solution/hui-su-suan-fa-jian-zhi-python-dai-ma-java-dai-ma-/</a><br>来源：力扣（LeetCode）<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p><p>参考</p><blockquote><p>[回溯算法 + 剪枝（Java）](回溯算法 + 剪枝（Java）)</p></blockquote><p>注意遍历的i 应该从 start开始， 并且每次递归都是 i+1 ， 如果直接 <code>temp.contains(i)</code> 进行判空的话，还是会重复</p><h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><p>针对搜索</p><pre><code class="java">// 从当前搜索起点 begin 遍历到 nfor (int i = begin; i &lt;= n; i++) &#123;    path.addLast(i);    dfs(n, k, i + 1, path, res);    path.removeLast();&#125;</code></pre><p>事实上，如果 n = 7, k = 4，从 55 开始搜索就已经没有意义了，这是因为：即使把 55 选上，后面的数只有 66 和 77，一共就 33 个候选数，凑不出 44 个数的组合。因此，搜索起点有上界，这个上界是多少，可以举几个例子分析。</p><p>容易知道：搜索起点和当前还需要选几个数有关，而当前还需要选几个数与已经选了几个数有关，即与 path 的长度相关。我们举几个例子分析：</p><p>例如：n = 6 ，k = 4。</p><p>path.size() == 1 的时候，接下来要选择 33 个数，搜索起点最大是 44，最后一个被选的组合是 [4, 5, 6]；<br>path.size() == 2 的时候，接下来要选择 22 个数，搜索起点最大是 55，最后一个被选的组合是 [5, 6]；<br>path.size() == 3 的时候，接下来要选择 11 个数，搜索起点最大是 66，最后一个被选的组合是 [6]；</p><p>再如：n = 15 ，k = 4。<br>path.size() == 1 的时候，接下来要选择 33 个数，搜索起点最大是 1313，最后一个被选的是 [13, 14, 15]；<br>path.size() == 2 的时候，接下来要选择 22 个数，搜索起点最大是 1414，最后一个被选的是 [14, 15]；<br>path.size() == 3 的时候，接下来要选择 11 个数，搜索起点最大是 1515，最后一个被选的是 [15]；</p><p>可以归纳出：</p><p>搜索起点的上界 + 接下来要选择的元素个数 - 1 = n<br>其中，接下来要选择的元素个数 = k - path.size()，整理得到：</p><p>搜索起点的上界 = <code>n - (k - path.size()) + 1</code><br>所以，我们的剪枝过程就是：把<code> i &lt;= n</code> 改成<code> i &lt;= n - (k - path.size()) + 1</code> ：</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+          <category> 回溯 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> leetcode </tag>
+            
+            <tag> 回溯 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>20. 有效的括号</title>
+      <link href="2020/10/17/20.%20%E6%9C%89%E6%95%88%E7%9A%84%E6%8B%AC%E5%8F%B7/"/>
+      <url>2020/10/17/20.%20%E6%9C%89%E6%95%88%E7%9A%84%E6%8B%AC%E5%8F%B7/</url>
+      
+        <content type="html"><![CDATA[<h4 id="20-有效的括号"><a href="#20-有效的括号" class="headerlink" title="20. 有效的括号"></a><a href="https://leetcode-cn.com/problems/valid-parentheses/">20. 有效的括号</a></h4><p>难度简单1920收藏分享切换为英文接收动态反馈</p><p>给定一个只包括 <code>&#39;(&#39;</code>，<code>&#39;)&#39;</code>，<code>&#39;&#123;&#39;</code>，<code>&#39;&#125;&#39;</code>，<code>&#39;[&#39;</code>，<code>&#39;]&#39;</code> 的字符串，判断字符串是否有效。</p><p>有效字符串需满足：</p><ol><li>左括号必须用相同类型的右括号闭合。</li><li>左括号必须以正确的顺序闭合。</li></ol><p>注意空字符串可被认为是有效字符串。</p><p><strong>示例 1:</strong></p><pre><code class="java">输入: &quot;()&quot;输出: true</code></pre><p><strong>示例 2:</strong></p><pre><code class="java">输入: &quot;()[]&#123;&#125;&quot;输出: true</code></pre><p><strong>示例 3:</strong></p><pre><code class="java">输入: &quot;(]&quot;输出: false</code></pre><p><strong>示例 4:</strong></p><pre><code class="java">输入: &quot;([)]&quot;输出: false</code></pre><p><strong>示例 5:</strong></p><pre><code class="java">输入: &quot;&#123;[]&#125;&quot;输出: true</code></pre><p>通过次数435,296</p><p>提交次数1,008,971</p><h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><pre><code class="java">class Solution &#123;    public boolean isValid(String s) &#123;        if(s.length() %2 !=0 ) return false;        LinkedList&lt;Character&gt; temp = new LinkedList&lt;&gt;();        for(char c : s.toCharArray())&#123;            if( c == &#39;(&#39;) temp.add(&#39;)&#39;);            else if( c== &#39;&#123;&#39;) temp.add(&#39;&#125;&#39;);            else if( c==&#39;[&#39;) temp.add(&#39;]&#39;);            else if( temp.isEmpty() ||  c != temp.pollLast()) return false;        &#125;        return temp.isEmpty();    &#125;&#125;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+          <category> 字符串 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> leetcode </tag>
+            
+            <tag> 字符串 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>22. 括号生成</title>
+      <link href="2020/10/17/22.%20%E6%8B%AC%E5%8F%B7%E7%94%9F%E6%88%90/"/>
+      <url>2020/10/17/22.%20%E6%8B%AC%E5%8F%B7%E7%94%9F%E6%88%90/</url>
+      
+        <content type="html"><![CDATA[<h4 id="22-括号生成"><a href="#22-括号生成" class="headerlink" title="22. 括号生成"></a><a href="https://leetcode-cn.com/problems/generate-parentheses/">22. 括号生成</a></h4><p>难度中等1371收藏分享切换为英文接收动态反馈</p><p>数字 <em>n</em> 代表生成括号的对数，请你设计一个函数，用于能够生成所有可能的并且 <strong>有效的</strong> 括号组合。</p><p><strong>示例：</strong></p><pre><code class="java">输入：n = 3输出：[       &quot;((()))&quot;,       &quot;(()())&quot;,       &quot;(())()&quot;,       &quot;()(())&quot;,       &quot;()()()&quot;     ]</code></pre><p>通过次数189,571</p><p>提交次数248,107</p><h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><pre><code class="java">class Solution &#123;    public List&lt;String&gt; generateParenthesis(int n) &#123;        List&lt;String&gt; res = new ArrayList&lt;&gt;();        if(n ==0) return res;        traceBack(&quot;&quot;,0,0,n,res);        return res;    &#125;    void traceBack(String temp, int left, int right, int n, List&lt;String&gt; res)&#123;        if( left == n &amp;&amp; right ==n)&#123;            res.add(temp);            return;        &#125;        if( left &lt; right) return; //剪枝，是的左括号的个数严格大于右括号的个数，才剪枝        if(left &lt; n)&#123;            traceBack(temp + &quot;(&quot;, left + 1, right, n , res);        &#125;        if(right &lt; n)&#123;            traceBack(temp+ &quot;)&quot;, left, right+1, n, res);        &#125;    &#125;&#125;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+          <category> 回溯 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> leetcode </tag>
+            
+            <tag> 回溯 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>51. N 皇后</title>
+      <link href="2020/10/17/51.%20N%20%E7%9A%87%E5%90%8E/"/>
+      <url>2020/10/17/51.%20N%20%E7%9A%87%E5%90%8E/</url>
+      
+        <content type="html"><![CDATA[<h1 id="51-N-皇后"><a href="#51-N-皇后" class="headerlink" title="51. N 皇后"></a><a href="https://leetcode-cn.com/problems/n-queens/">51. N 皇后</a></h1><p>难度困难637</p><p><em>n</em> 皇后问题研究的是如何将 <em>n</em> 个皇后放置在 <em>n</em>×<em>n</em> 的棋盘上，并且使皇后彼此之间不能相互攻击。</p><p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/10/12/8-queens.png" alt="img"></p><p>上图为 8 皇后问题的一种解法。</p><p>给定一个整数 <em>n</em>，返回所有不同的 <em>n</em> 皇后问题的解决方案。</p><p>每一种解法包含一个明确的 <em>n</em> 皇后问题的棋子放置方案，该方案中 <code>&#39;Q&#39;</code> 和 <code>&#39;.&#39;</code> 分别代表了皇后和空位。</p><p><strong>示例：</strong></p><pre><code class="java">输入：4输出：[ [&quot;.Q..&quot;,  // 解法 1  &quot;...Q&quot;,  &quot;Q...&quot;,  &quot;..Q.&quot;], [&quot;..Q.&quot;,  // 解法 2  &quot;Q...&quot;,  &quot;...Q&quot;,  &quot;.Q..&quot;]]解释: 4 皇后问题存在两个不同的解法。</code></pre><p><strong>提示：</strong></p><ul><li>皇后彼此不能相互攻击，也就是说：任何两个皇后都不能处于同一条横行、纵行或斜线上。</li></ul><p>通过次数82,902</p><p>提交次数113,295</p><p>在真实的面试中遇到过这道题？</p><h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><pre><code class="java">class Solution &#123;    public List&lt;List&lt;String&gt;&gt; solveNQueens(int n) &#123;        //先构建棋盘        char[][] chess = new char[n][n];        for(int i = 0; i &lt;n; i++)&#123;            for(int j = 0; j &lt;n;j++)&#123;                chess[i][j] = &#39;.&#39;;            &#125;        &#125;        List&lt;List&lt;String&gt;&gt; res = new ArrayList&lt;&gt;();        traceBack( res, chess, 0);        return res;    &#125;    //回溯    void traceBack(List&lt;List&lt;String&gt;&gt; res, char[][] chess, int row)&#123;        if( row == chess.length)&#123;            res.add( construct(chess));            return;        &#125;        for(int col = 0; col &lt; chess.length; col++)&#123;            if( valid(chess, row, col))&#123;                chess[row][col] = &#39;Q&#39;;                traceBack(res, chess, row+1);                chess[row][col] = &#39;.&#39;;            &#125;        &#125;    &#125;    //row 表示行， col  表示列 valid函数表示当前的格子能否放入Q    boolean valid( char[][] chess, int row, int col)&#123;        //判断列有没有Q        for(int i = 0 ; i &lt; row ; i++)&#123;            if(chess[i][col] ==&#39;Q&#39;)&#123;                return false;            &#125;        &#125;        //判断右上角有没有Q        for(int i = row - 1, j = col +1 ; i &gt;= 0 &amp;&amp; j &lt; chess.length; i--, j++)&#123;            if(chess[i][j] ==&#39;Q&#39;)&#123;                return false;            &#125;        &#125;        //判断左上角有没有Q        for(int i = row - 1, j  = col -1; i&gt;= 0 &amp;&amp; j &gt;=0; i--, j--)&#123;            if(chess[i][j] ==&#39;Q&#39;)&#123;                return false;            &#125;        &#125;        return true;    &#125;    //把数组转为list    List&lt;String&gt; construct(char[][] chess)&#123;        List&lt;String&gt; temp = new ArrayList&lt;&gt;();        for(int i =0; i &lt; chess.length; i++)&#123;            temp.add(new String(chess[i]));        &#125;        return temp;    &#125;&#125;</code></pre><hr><p>参考:</p><p><a href="https://leetcode-cn.com/problems/n-queens/solution/nhuang-hou-jing-dian-hui-su-suan-fa-tu-wen-xiang-j/">N皇后，经典回溯算法（图文详解）</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+          <category> 回溯 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> leetcode </tag>
+            
+            <tag> 回溯 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>491. 递增子序列</title>
+      <link href="2020/10/17/491.%20%E9%80%92%E5%A2%9E%E5%AD%90%E5%BA%8F%E5%88%97/"/>
+      <url>2020/10/17/491.%20%E9%80%92%E5%A2%9E%E5%AD%90%E5%BA%8F%E5%88%97/</url>
+      
+        <content type="html"><![CDATA[<h1 id="491-递增子序列"><a href="#491-递增子序列" class="headerlink" title="491. 递增子序列"></a><a href="https://leetcode-cn.com/problems/increasing-subsequences/">491. 递增子序列</a></h1><p>难度中等216收藏分享切换为英文接收动态反馈</p><p>给定一个整型数组, 你的任务是找到所有该数组的递增子序列，递增子序列的长度至少是2。</p><p><strong>示例:</strong></p><pre><code class="java">输入: [4, 6, 7, 7]输出: [[4, 6], [4, 7], [4, 6, 7], [4, 6, 7, 7], [6, 7], [6, 7, 7], [7,7], [4,7,7]]</code></pre><p><strong>说明:</strong></p><ol><li>给定数组的长度不会超过15。</li><li>数组中的整数范围是 [-100,100]。</li><li>给定数组中可能包含重复数字，相等的数字应该被视为递增的一种情况。</li></ol><p>通过次数29,313</p><p>提交次数52,378</p><h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><pre><code class="java">class Solution &#123;    public List&lt;List&lt;Integer&gt;&gt; findSubsequences(int[] nums) &#123;        Set&lt;List&lt;Integer&gt;&gt; res = new HashSet&lt;&gt;();        if( nums == null || nums.length == 0)&#123;            return new ArrayList&lt;&gt;(res);        &#125;         traceBack(nums, 0, new LinkedList&lt;Integer&gt;(), res);        return new ArrayList&lt;&gt;(res);    &#125;    void traceBack(int[] nums, int start, LinkedList&lt;Integer&gt; temp, Set&lt;List&lt;Integer&gt;&gt; res)&#123;        if(temp.size() &gt; 1)&#123;            res.add(new LinkedList&lt;Integer&gt;(temp));        &#125;        for(int i =start; i &lt; nums.length; i++)&#123;            if(temp.size() &gt; nums.length) break;            //if( i &gt; start &amp;&amp; nums[i] ==nums[i-1]) continue;            if( temp.isEmpty() || temp.peekLast() &lt;= nums[i])&#123;                temp.add(nums[i]);                traceBack(nums, i+1, temp, res);                temp.pollLast();            &#125;         &#125;    &#125;&#125;</code></pre><p><code>if( i &gt; start &amp;&amp; nums[i] ==nums[i-1]) continue;</code> 这段也可以用作去重， 但是需要在<code>res.add(new LinkedList&lt;Integer&gt;(temp));</code> 后添加return , 否则只能去掉 相邻的2个重复数字，</p><p>例如 ：<code>1，1, 1 ,1 </code> 只能去掉 第2个<code>1</code> ,只能利用hashset进行去重处理。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+          <category> 回溯 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> leetcode </tag>
+            
+            <tag> 回溯 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>40. 组合总和 II</title>
+      <link href="2020/10/17/40.%20%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8C%20II/"/>
+      <url>2020/10/17/40.%20%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8C%20II/</url>
+      
+        <content type="html"><![CDATA[<h1 id="40-组合总和-II"><a href="#40-组合总和-II" class="headerlink" title="40. 组合总和 II"></a><a href="https://leetcode-cn.com/problems/combination-sum-ii/">40. 组合总和 II</a></h1><p>难度中等424收藏分享切换为英文接收动态反馈</p><p>给定一个数组 <code>candidates</code> 和一个目标数 <code>target</code> ，找出 <code>candidates</code> 中所有可以使数字和为 <code>target</code> 的组合。</p><p><code>candidates</code> 中的每个数字在每个组合中只能使用一次。</p><p><strong>说明：</strong></p><ul><li>所有数字（包括目标数）都是正整数。</li><li>解集不能包含重复的组合。 </li></ul><p><strong>示例 1:</strong></p><pre><code>输入: candidates = [10,1,2,7,6,1,5], target = 8,所求解集为:[  [1, 7],  [1, 2, 5],  [2, 6],  [1, 1, 6]]</code></pre><p><strong>示例 2:</strong></p><pre><code>输入: candidates = [2,5,2,1,2], target = 5,所求解集为:[  [1,2,2],  [5]]</code></pre><p>通过次数112,924</p><p>提交次数174,967</p><h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><pre><code class="java">class Solution &#123;    public List&lt;List&lt;Integer&gt;&gt; combinationSum2(int[] candidates, int target) &#123;        List&lt;List&lt;Integer&gt;&gt; res = new LinkedList&lt;&gt;();        if(candidates == null || candidates.length ==0) return res;        Arrays.sort(candidates);        traceBack(candidates, 0, target, 0, new LinkedList&lt;Integer&gt;(), res);        return res;    &#125;    void traceBack(int[] candidates, int sum, int target, int start, LinkedList&lt;Integer&gt; temp, List&lt;List&lt;Integer&gt;&gt; res)&#123;        if( sum == target)&#123;            res.add( new LinkedList&lt;&gt;(temp));            return;        &#125;        for(int i =start; i &lt; candidates.length; i++)&#123;            if(sum &gt;target) break;            if( i &gt; start &amp;&amp; candidates[i] == candidates[i-1]) continue;            temp.add(candidates[i]);            sum+=candidates[i];            traceBack(candidates, sum, target, i+1, temp, res);            temp.pollLast();            sum-=candidates[i];        &#125;    &#125;&#125;</code></pre><hr><p>不考虑时间复杂度</p><p>利用 <code>contains()</code>来对结果进行判重</p><pre><code class="java">class Solution &#123;    public List&lt;List&lt;Integer&gt;&gt; combinationSum2(int[] candidates, int target) &#123;        List&lt;List&lt;Integer&gt;&gt; res = new LinkedList&lt;&gt;();        if(candidates == null || candidates.length ==0) return res;        Arrays.sort(candidates);        traceBack(candidates, 0, target, 0, new LinkedList&lt;Integer&gt;(), res);        return res;    &#125;    void traceBack(int[] candidates, int sum, int target, int start, LinkedList&lt;Integer&gt; temp, List&lt;List&lt;Integer&gt;&gt; res)&#123;        if( sum == target &amp;&amp; !res.contains(temp))&#123;            res.add( new LinkedList&lt;&gt;(temp));            return;        &#125;        for(int i =start; i &lt; candidates.length; i++)&#123;            if(sum &gt;target) break;            temp.add(candidates[i]);            sum+=candidates[i];            traceBack(candidates, sum, target, i+1, temp, res);            temp.pollLast();            sum-=candidates[i];        &#125;    &#125;&#125;</code></pre><p>参考：</p><p><a href="https://leetcode-cn.com/problems/combination-sum-ii/solution/hui-su-suan-fa-jian-zhi-python-dai-ma-java-dai-m-3/">回溯算法 + 剪枝（Java、Python）</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+          <category> 回溯 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> leetcode </tag>
+            
+            <tag> 回溯 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>39. 组合总和</title>
+      <link href="2020/10/17/39.%20%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8C/"/>
+      <url>2020/10/17/39.%20%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8C/</url>
+      
+        <content type="html"><![CDATA[<h4 id="39-组合总和"><a href="#39-组合总和" class="headerlink" title="39. 组合总和"></a><a href="https://leetcode-cn.com/problems/combination-sum/">39. 组合总和</a></h4><p>难度中等1001收藏分享切换为英文接收动态反馈</p><p>给定一个<strong>无重复元素</strong>的数组 <code>candidates</code> 和一个目标数 <code>target</code> ，找出 <code>candidates</code> 中所有可以使数字和为 <code>target</code> 的组合。</p><p><code>candidates</code> 中的数字可以无限制重复被选取。</p><p><strong>说明：</strong></p><ul><li>所有数字（包括 <code>target</code>）都是正整数。</li><li>解集不能包含重复的组合。 </li></ul><p><strong>示例 1：</strong></p><pre><code class="java">输入：candidates = [2,3,6,7], target = 7,所求解集为：[  [7],  [2,2,3]]</code></pre><p><strong>示例 2：</strong></p><pre><code class="java">输入：candidates = [2,3,5], target = 8,所求解集为：[  [2,2,2,2],  [2,3,3],  [3,5]]</code></pre><p><strong>提示：</strong></p><ul><li><code>1 &lt;= candidates.length &lt;= 30</code></li><li><code>1 &lt;= candidates[i] &lt;= 200</code></li><li><code>candidate</code> 中的每个元素都是独一无二的。</li><li><code>1 &lt;= target &lt;= 500</code></li></ul><p>通过次数172,408</p><p>提交次数241,129</p><h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><pre><code class="java">class Solution &#123;    public List&lt;List&lt;Integer&gt;&gt; combinationSum(int[] candidates, int target) &#123;        List&lt;List&lt;Integer&gt;&gt; res = new LinkedList&lt;&gt;();        if( candidates == null || candidates.length ==0) return res;        Arrays.sort(candidates); // 排序是减枝的基础        traceBack(  candidates,  new LinkedList&lt;Integer&gt;(), 0, 0, target, res);        return res;    &#125;    void traceBack(int[] candidates,LinkedList&lt;Integer&gt; temp ,int sum ,int start, int target,List&lt;List&lt;Integer&gt;&gt; res)&#123;        if(sum == target)&#123;            res.add( new LinkedList&lt;&gt;(temp));            return;        &#125;        for(int i = start; i &lt; candidates.length; i++)&#123;            if(sum &gt; target) break; //如果 sum &gt; target 则后面的都不需要继续 循环了 ，直接退出            temp.add(candidates[i]);            sum+= candidates[i];            traceBack( candidates, temp, sum ,  i, target, res);            temp.pollLast();            sum-=candidates[i];        &#125;    &#125;&#125;</code></pre><hr><blockquote><p>排列问题，讲究顺序（即 [2, 2, 3] 与 [2, 3, 2] 视为不同列表时），需要记录哪些数字已经使用过，此时用 used 数组；<br>组合问题，不讲究顺序（即 [2, 2, 3] 与 [2, 3, 2] 视为相同列表时），需要按照某种顺序搜索，此时使用 begin 变量。</p><p>作者：cherry-n1<br>链接：<a href="https://leetcode-cn.com/problems/combination-sum/solution/zu-he-zong-he-hui-su-jian-zhi-wu-jian-zhi-by-cherr/">https://leetcode-cn.com/problems/combination-sum/solution/zu-he-zong-he-hui-su-jian-zhi-wu-jian-zhi-by-cherr/</a><br>来源：力扣（LeetCode）<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+          <category> 回溯 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> leetcode </tag>
+            
+            <tag> 回溯 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>47. 全排列 II</title>
       <link href="2020/10/16/47.%20%E5%85%A8%E6%8E%92%E5%88%97%20II/"/>
       <url>2020/10/16/47.%20%E5%85%A8%E6%8E%92%E5%88%97%20II/</url>
@@ -124,7 +356,7 @@
       <link href="2020/10/14/1011.%20%E5%9C%A8%20D%20%E5%A4%A9%E5%86%85%E9%80%81%E8%BE%BE%E5%8C%85%E8%A3%B9%E7%9A%84%E8%83%BD%E5%8A%9B/"/>
       <url>2020/10/14/1011.%20%E5%9C%A8%20D%20%E5%A4%A9%E5%86%85%E9%80%81%E8%BE%BE%E5%8C%85%E8%A3%B9%E7%9A%84%E8%83%BD%E5%8A%9B/</url>
       
-        <content type="html"><![CDATA[<h4 id="1011-在-D-天内送达包裹的能力"><a href="#1011-在-D-天内送达包裹的能力" class="headerlink" title="1011. 在 D 天内送达包裹的能力"></a><a href="https://leetcode-cn.com/problems/capacity-to-ship-packages-within-d-days/">1011. 在 D 天内送达包裹的能力</a></h4><p>难度中等134</p><p>传送带上的包裹必须在 D 天内从一个港口运送到另一个港口。</p><p>传送带上的第 <code>i</code> 个包裹的重量为 <code>weights[i]</code>。每一天，我们都会按给出重量的顺序往传送带上装载包裹。我们装载的重量不会超过船的最大运载重量。</p><p>返回能在 <code>D</code> 天内将传送带上的所有包裹送达的船的最低运载能力。</p><p><strong>示例 1：</strong></p><pre><code class="java">输入：weights = [1,2,3,4,5,6,7,8,9,10], D = 5输出：15解释：船舶最低载重 15 就能够在 5 天内送达所有包裹，如下所示：第 1 天：1, 2, 3, 4, 5第 2 天：6, 7第 3 天：8第 4 天：9第 5 天：10请注意，货物必须按照给定的顺序装运，因此使用载重能力为 14 的船舶并将包装分成 (2, 3, 4, 5), (1, 6, 7), (8), (9), (10) 是不允许的。 </code></pre><p><strong>示例 2：</strong></p><pre><code class="java">输入：weights = [3,2,2,4,1,4], D = 3输出：6解释：船舶最低载重 6 就能够在 3 天内送达所有包裹，如下所示：第 1 天：3, 2第 2 天：2, 4第 3 天：1, 4</code></pre><p><strong>示例 3：</strong></p><pre><code class="java">输入：weights = [1,2,3,1,1], D = 4输出：3解释：第 1 天：1第 2 天：2第 3 天：3第 4 天：1, 1</code></pre><p><strong>提示：</strong></p><ol><li><code>1 &lt;= D &lt;= weights.length &lt;= 50000</code></li><li><code>1 &lt;= weights[i] &lt;= 500</code></li></ol><p>通过次数11,902</p><p>提交次数21,902</p><h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><pre><code class="java">class Solution &#123;    public int shipWithinDays(int[] weights, int D) &#123;        int l = 0;        int r = 0;        for(int i =0; i &lt; weights.length; i++)&#123;            l = Math.max(l, weights[i]);            r+= weights[i];        &#125;        while( l &lt; r)&#123;            int mid = l + (r-l)/2;            if( check(weights, D, mid))&#123;                r = mid;            &#125;else&#123;                l = mid+1;            &#125;        &#125;        return l;    &#125;    private boolean check(int[] weights, int D, int mid)&#123;        int temp = mid;        for(int i : weights)&#123;            if(i&gt;temp)&#123;                temp = mid;                D--;            &#125;            temp-=i;        &#125;        return D&gt;0;    &#125;&#125;</code></pre>]]></content>
+        <content type="html"><![CDATA[<h4 id="1011-在-D-天内送达包裹的能力"><a href="#1011-在-D-天内送达包裹的能力" class="headerlink" title="1011. 在 D 天内送达包裹的能力"></a><a href="https://leetcode-cn.com/problems/capacity-to-ship-packages-within-d-days/">1011. 在 D 天内送达包裹的能力</a></h4><p>难度中等134</p><p>传送带上的包裹必须在 D 天内从一个港口运送到另一个港口。</p><p>传送带上的第 <code>i</code> 个包裹的重量为 <code>weights[i]</code>。每一天，我们都会按给出重量的顺序往传送带上装载包裹。我们装载的重量不会超过船的最大运载重量。</p><p>返回能在 <code>D</code> 天内将传送带上的所有包裹送达的船的最低运载能力。</p><p><strong>示例 1：</strong></p><pre><code class="java">输入：weights = [1,2,3,4,5,6,7,8,9,10], D = 5输出：15解释：船舶最低载重 15 就能够在 5 天内送达所有包裹，如下所示：第 1 天：1, 2, 3, 4, 5第 2 天：6, 7第 3 天：8第 4 天：9第 5 天：10请注意，货物必须按照给定的顺序装运，因此使用载重能力为 14 的船舶并将包装分成 (2, 3, 4, 5), (1, 6, 7), (8), (9), (10) 是不允许的。 </code></pre><p><strong>示例 2：</strong></p><pre><code class="java">输入：weights = [3,2,2,4,1,4], D = 3输出：6解释：船舶最低载重 6 就能够在 3 天内送达所有包裹，如下所示：第 1 天：3, 2第 2 天：2, 4第 3 天：1, 4</code></pre><p><strong>示例 3：</strong></p><pre><code class="java">输入：weights = [1,2,3,1,1], D = 4输出：3解释：第 1 天：1第 2 天：2第 3 天：3第 4 天：1, 1</code></pre><p><strong>提示：</strong></p><ol><li><code>1 &lt;= D &lt;= weights.length &lt;= 50000</code></li><li><code>1 &lt;= weights[i] &lt;= 500</code></li></ol><p>通过次数11,902</p><p>提交次数21,902</p><h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><pre><code class="java">class Solution &#123;    public int shipWithinDays(int[] weights, int D) &#123;        int l = 0;        int r = 0;        for(int i =0; i &lt; weights.length; i++)&#123;            l = Math.max(l, weights[i]);            r+= weights[i];        &#125;        while( l &lt; r)&#123;            int mid = l + (r-l)/2;            if( check(weights, D, mid))&#123;                r = mid;            &#125;else&#123;                l = mid+1;            &#125;        &#125;        return l;    &#125;    private boolean check(int[] weights, int D, int mid)&#123;        int temp = mid;        for(int i : weights)&#123;            //如果当前i的重量超过 当前的运送能力，那么只能等下一天再运，也就是运送能力重置， 天数-1            if(i&gt;temp)&#123;                temp = mid;                D--;            &#125;            temp-=i;        &#125;        return D&gt;0;    &#125;&#125;</code></pre>]]></content>
       
       
       <categories>
