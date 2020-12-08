@@ -4,6 +4,359 @@
   
     
     <entry>
+      <title>553. 最优除法</title>
+      <link href="2020/12/08/553.%20%E6%9C%80%E4%BC%98%E9%99%A4%E6%B3%95/"/>
+      <url>2020/12/08/553.%20%E6%9C%80%E4%BC%98%E9%99%A4%E6%B3%95/</url>
+      
+        <content type="html"><![CDATA[<h1 id="553-最优除法"><a href="#553-最优除法" class="headerlink" title="553. 最优除法"></a><a href="https://leetcode-cn.com/problems/optimal-division/">553. 最优除法</a></h1><p>难度中等54</p><p>给定一组<strong>正整数，</strong>相邻的整数之间将会进行浮点除法操作。例如， [2,3,4] -&gt; 2 / 3 / 4 。</p><p>但是，你可以在任意位置添加任意数目的括号，来改变算数的优先级。你需要找出怎么添加括号，才能得到<strong>最大的</strong>结果，并且返回相应的字符串格式的表达式。<strong>你的表达式不应该含有冗余的括号。</strong></p><p><strong>示例：</strong></p><pre><code class="python">输入: [1000,100,10,2]输出: &quot;1000/(100/10/2)&quot;解释:1000/(100/10/2) = 1000/((100/10)/2) = 200但是，以下加粗的括号 &quot;1000/((100/10)/2)&quot; 是冗余的，因为他们并不影响操作的优先级，所以你需要返回 &quot;1000/(100/10/2)&quot;。其他用例:1000/(100/10)/2 = 501000/(100/(10/2)) = 501000/100/10/2 = 0.51000/100/(10/2) = 2</code></pre><p><strong>说明:</strong></p><ol><li>输入数组的长度在 [1, 10] 之间。</li><li>数组中每个元素的大小都在 [2, 1000] 之间。</li><li>每个测试用例只有一个最优除法解。</li></ol><h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><pre><code class="python">class Solution:    def optimalDivision(self, nums: List[int]) -&gt; str:        n = len(nums)        if n == 0 : return &quot;&quot;        if n == 1 : return str(nums[0])        if n == 2 : return str(nums[0]) + &#39;/&#39; + str(nums[1])        res = &quot;&quot;        res += str(nums[0])        res += &#39;/(&#39;        for i in range(1, len(nums)):            if i != len(nums) -1 :                res += str(nums[i]) + &#39;/&#39;            else:                res += str(nums[i])        res += &#39;)&#39;        return res</code></pre><p>因为是正整数，无论数组为什么，最大数为 <code>nums[0] /(nums[1]/nums[2]/....nums[n-1])</code></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+          <category> 字符串 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> leetcode </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>面试题 16.26. 计算器</title>
+      <link href="2020/12/06/%E9%9D%A2%E8%AF%95%E9%A2%98%2016.26.%20%E8%AE%A1%E7%AE%97%E5%99%A8/"/>
+      <url>2020/12/06/%E9%9D%A2%E8%AF%95%E9%A2%98%2016.26.%20%E8%AE%A1%E7%AE%97%E5%99%A8/</url>
+      
+        <content type="html"><![CDATA[<h1 id="面试题-16-26-计算器"><a href="#面试题-16-26-计算器" class="headerlink" title="面试题 16.26. 计算器"></a><a href="https://leetcode-cn.com/problems/calculator-lcci/">面试题 16.26. 计算器</a></h1><p>难度中等22收藏分享切换为英文接收动态反馈</p><p>给定一个包含正整数、加(+)、减(-)、乘(*)、除(/)的算数表达式(括号除外)，计算其结果。</p><p>表达式仅包含非负整数，<code>+</code>， <code>-</code> ，<code>*</code>，<code>/</code> 四种运算符和空格 <code> </code>。 整数除法仅保留整数部分。</p><p><strong>示例 1:</strong></p><pre><code>输入: &quot;3+2*2&quot;输出: 7</code></pre><p><strong>示例 2:</strong></p><pre><code>输入: &quot; 3/2 &quot;输出: 1</code></pre><p><strong>示例 3:</strong></p><pre><code>输入: &quot; 3+5 / 2 &quot;输出: 5</code></pre><p><strong>说明：</strong></p><ul><li>你可以假设所给定的表达式都是有效的。</li><li>请<strong>不要</strong>使用内置的库函数 <code>eval</code>。</li></ul><p>通过次数6,509</p><p>提交次数17,412</p><h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><pre><code class="python">class Solution:    def calculate(self, s: str) -&gt; int:        s = list(s)        stack = []        num = 0        opt = &quot;+&quot; # 第一个数可以看成是 [0] + num , 也就是第一个数一定是正数        opreate = [&quot;+&quot;, &quot;-&quot;, &quot;*&quot;, &quot;/&quot;]        for i in range( len(s)):            # 注意是弹栈头的方式            ch = s.pop(0)            # 如果是数字则继续加， 可能有多位            if ch.isdigit():                num = num * 10 + int(ch)            # 如果题目中带() ,则 对()中的表达式进行递归操作            if ch == &#39;(&#39;:                self.calculate(s)            if ch in opreate or not s or ch == &#39;)&#39;:                # opt保存的是上一个非数字的符号，                # stack.pop() 保存的是 上一个非数组符号的左边的数                # num 保存的是上一个非数组符号的右边的数                # 最后计算他们2个 值                if opt == &quot;+&quot;:                    stack.append( num)                if opt == &quot;-&quot;:                    stack.append(-num)                if opt == &#39;*&#39;:                    stack.append( stack.pop() * num)                if opt == &quot;/&quot;:                    stack.append( int ( stack.pop() / num))                 # 计算完之后，再讲计算式保存为当前的计算符                opt = ch                 # 将num清0                num = 0;            if ch == &#39;)&#39;:                break        return sum(stack)</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+          <category> 字符串 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> leetcode </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>1668. 最大重复子字符串</title>
+      <link href="2020/12/05/1668.%20%E6%9C%80%E5%A4%A7%E9%87%8D%E5%A4%8D%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+      <url>2020/12/05/1668.%20%E6%9C%80%E5%A4%A7%E9%87%8D%E5%A4%8D%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2/</url>
+      
+        <content type="html"><![CDATA[<h4 id="1668-最大重复子字符串"><a href="#1668-最大重复子字符串" class="headerlink" title="1668. 最大重复子字符串"></a><a href="https://leetcode-cn.com/problems/maximum-repeating-substring/">1668. 最大重复子字符串</a></h4><p>难度简单3收藏分享切换为英文接收动态反馈</p><p>给你一个字符串 <code>sequence</code> ，如果字符串 <code>word</code> 连续重复 <code>k</code> 次形成的字符串是 <code>sequence</code> 的一个子字符串，那么单词 <code>word</code> 的 <strong>重复值为 <code>k</code></strong> 。单词 <code>word</code> 的 <strong>最**</strong>大重复值** 是单词 <code>word</code> 在 <code>sequence</code> 中最大的重复值。如果 <code>word</code> 不是 <code>sequence</code> 的子串，那么重复值 <code>k</code> 为 <code>0</code> 。</p><p>给你一个字符串 <code>sequence</code> 和 <code>word</code> ，请你返回 <strong>最大重复值 <code>k</code></strong> 。</p><p><strong>示例 1：</strong></p><pre><code class="python">输入：sequence = &quot;ababc&quot;, word = &quot;ab&quot;输出：2解释：&quot;abab&quot; 是 &quot;ababc&quot; 的子字符串。</code></pre><p><strong>示例 2：</strong></p><pre><code class="python">输入：sequence = &quot;ababc&quot;, word = &quot;ba&quot;输出：1解释：&quot;ba&quot; 是 &quot;ababc&quot; 的子字符串，但 &quot;baba&quot; 不是 &quot;ababc&quot; 的子字符串。</code></pre><p><strong>示例 3：</strong></p><pre><code class="python">输入：sequence = &quot;ababc&quot;, word = &quot;ac&quot;输出：0解释：&quot;ac&quot; 不是 &quot;ababc&quot; 的子字符串。</code></pre><p><strong>提示：</strong></p><ul><li><code>1 &lt;= sequence.length &lt;= 100</code></li><li><code>1 &lt;= word.length &lt;= 100</code></li><li><code>sequence</code> 和 <code>word</code> 都只包含小写英文字母。</li></ul><p>通过次数2,231</p><p>提交次数5,175</p><h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><pre><code class="python">class Solution:    def maxRepeating(self, sequence: str, word: str) -&gt; int:        res = 0        while word * (res+1) in sequence:            res+=1        return res</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+          <category> 字符串 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> leetcode </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>816. 模糊坐标</title>
+      <link href="2020/12/05/816.%20%E6%A8%A1%E7%B3%8A%E5%9D%90%E6%A0%87/"/>
+      <url>2020/12/05/816.%20%E6%A8%A1%E7%B3%8A%E5%9D%90%E6%A0%87/</url>
+      
+        <content type="html"><![CDATA[<h4 id="816-模糊坐标"><a href="#816-模糊坐标" class="headerlink" title="816. 模糊坐标"></a><a href="https://leetcode-cn.com/problems/ambiguous-coordinates/">816. 模糊坐标</a></h4><p>难度中等27</p><p>我们有一些二维坐标，如 <code>&quot;(1, 3)&quot;</code> 或 <code>&quot;(2, 0.5)&quot;</code>，然后我们移除所有逗号，小数点和空格，得到一个字符串<code>S</code>。返回所有可能的原始字符串到一个列表中。</p><p>原始的坐标表示法不会存在多余的零，所以不会出现类似于”00”, “0.0”, “0.00”, “1.0”, “001”, “00.01”或一些其他更小的数来表示坐标。此外，一个小数点前至少存在一个数，所以也不会出现“.1”形式的数字。</p><p>最后返回的列表可以是任意顺序的。而且注意返回的两个数字中间（逗号之后）都有一个空格。</p><pre><code class="python">示例 1:输入: &quot;(123)&quot;输出: [&quot;(1, 23)&quot;, &quot;(12, 3)&quot;, &quot;(1.2, 3)&quot;, &quot;(1, 2.3)&quot;]示例 2:输入: &quot;(00011)&quot;输出:  [&quot;(0.001, 1)&quot;, &quot;(0, 0.011)&quot;]解释: 0.0, 00, 0001 或 00.01 是不被允许的。示例 3:输入: &quot;(0123)&quot;输出: [&quot;(0, 123)&quot;, &quot;(0, 12.3)&quot;, &quot;(0, 1.23)&quot;, &quot;(0.1, 23)&quot;, &quot;(0.1, 2.3)&quot;, &quot;(0.12, 3)&quot;]示例 4:输入: &quot;(100)&quot;输出: [(10, 0)]解释: 1.0 是不被允许的。</code></pre><p><strong>提示:</strong></p><ul><li><code>4 &lt;= S.length &lt;= 12</code>.</li><li><code>S[0]</code> = “(“, <code>S[S.length - 1]</code> = “)”, 且字符串 <code>S</code> 中的其他元素都是数字。</li></ul><h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><pre><code class="python">class Solution:    def ambiguousCoordinates(self, S: str) -&gt; List[str]:        res = []        s = S[1:-1]        for i in range(1,len(s)):            x = self.make( s[:i])            y = self.make( s[i:])            for m in x:                for n in y:                    res.append( &quot;(&#123;&#125;, &#123;&#125;)&quot;.format(m,n))        return res    #如果第一个字符为0 那么 要么这个数字是 0 要么这个数字是 0.xxx    #如果结尾是0 那么这个数不能是是小数    def make(self, s):        # 如果 s 是以0开头的，后面非0        if s !=&#39;0&#39; and s[0] ==&#39;0&#39;:            return [ &#39;0.&#39; + s[1:]] if s[-1] != &#39;0&#39; else []        # 如果 s的最后为0， 则直接返回        if s[-1] ==&#39;0&#39;:            return [s]        res = [s]        for i in range( 1,len(s)):            res.append( s[:i] +&#39;.&#39; +s[i:])        return res</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+          <category> 字符串 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> leetcode </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>1249. 移除无效的括号</title>
+      <link href="2020/12/03/1249.%20%E7%A7%BB%E9%99%A4%E6%97%A0%E6%95%88%E7%9A%84%E6%8B%AC%E5%8F%B7/"/>
+      <url>2020/12/03/1249.%20%E7%A7%BB%E9%99%A4%E6%97%A0%E6%95%88%E7%9A%84%E6%8B%AC%E5%8F%B7/</url>
+      
+        <content type="html"><![CDATA[<h4 id="1249-移除无效的括号"><a href="#1249-移除无效的括号" class="headerlink" title="1249. 移除无效的括号"></a><a href="https://leetcode-cn.com/problems/minimum-remove-to-make-valid-parentheses/">1249. 移除无效的括号</a></h4><p>难度中等68</p><p>给你一个由 <code>&#39;(&#39;</code>、<code>&#39;)&#39;</code> 和小写字母组成的字符串 <code>s</code>。</p><p>你需要从字符串中删除最少数目的 <code>&#39;(&#39;</code> 或者 <code>&#39;)&#39;</code> （可以删除任意位置的括号)，使得剩下的「括号字符串」有效。</p><p>请返回任意一个合法字符串。</p><p>有效「括号字符串」应当符合以下 <strong>任意一条</strong> 要求：</p><ul><li>空字符串或只包含小写字母的字符串</li><li>可以被写作 <code>AB</code>（<code>A</code> 连接 <code>B</code>）的字符串，其中 <code>A</code> 和 <code>B</code> 都是有效「括号字符串」</li><li>可以被写作 <code>(A)</code> 的字符串，其中 <code>A</code> 是一个有效的「括号字符串」</li></ul><p><strong>示例 1：</strong></p><pre><code class="python">输入：s = &quot;lee(t(c)o)de)&quot;输出：&quot;lee(t(c)o)de&quot;解释：&quot;lee(t(co)de)&quot; , &quot;lee(t(c)ode)&quot; 也是一个可行答案。</code></pre><p><strong>示例 2：</strong></p><pre><code class="python">输入：s = &quot;a)b(c)d&quot;输出：&quot;ab(c)d&quot;</code></pre><p><strong>示例 3：</strong></p><pre><code class="python">输入：s = &quot;))((&quot;输出：&quot;&quot;解释：空字符串也是有效的</code></pre><p><strong>示例 4：</strong></p><pre><code class="python">输入：s = &quot;(a(b(c)d)&quot;输出：&quot;a(b(c)d)&quot;</code></pre><p><strong>提示：</strong></p><ul><li><code>1 &lt;= s.length &lt;= 10^5</code></li><li><code>s[i]</code> 可能是 <code>&#39;(&#39;</code>、<code>&#39;)&#39;</code> 或英文小写字母</li></ul><h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><p>利用栈保存 括号 和remove数组保存需要删除的索引</p><pre><code class="python">class Solution:    def minRemoveToMakeValid(self, s: str) -&gt; str:        remove = []        stack = []        arr = list(s)        for i in range(len(arr)):            if arr[i] == &#39;(&#39;:                stack.append(arr[i])                remove.append(i)            if arr[i] == &#39;)&#39;:                if len(stack) == 0:                    remove.append(i)                else:                    stack.pop()                    remove.pop()        res = []        for i in range(len(arr)):            if i not in remove:                res.append(s[i])        return &quot;&quot;.join(res)</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+          <category> 字符串 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> leetcode </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>1328. 破坏回文串</title>
+      <link href="2020/12/03/1328.%20%E7%A0%B4%E5%9D%8F%E5%9B%9E%E6%96%87%E4%B8%B2/"/>
+      <url>2020/12/03/1328.%20%E7%A0%B4%E5%9D%8F%E5%9B%9E%E6%96%87%E4%B8%B2/</url>
+      
+        <content type="html"><![CDATA[<h4 id="1328-破坏回文串"><a href="#1328-破坏回文串" class="headerlink" title="1328. 破坏回文串"></a><a href="https://leetcode-cn.com/problems/break-a-palindrome/">1328. 破坏回文串</a></h4><p>难度中等15</p><p>给你一个回文字符串 <code>palindrome</code> ，请你将其中 <strong>一个</strong> 字符用任意小写英文字母替换，使得结果字符串的字典序最小，且 <strong>不是</strong> 回文串。</p><p>请你返回结果字符串。如果无法做到，则返回一个空串。</p><p><strong>示例 1：</strong></p><pre><code class="python">输入：palindrome = &quot;abccba&quot;输出：&quot;aaccba&quot;</code></pre><p><strong>示例 2：</strong></p><pre><code class="python">输入：palindrome = &quot;a&quot;输出：&quot;&quot;</code></pre><p><strong>提示：</strong></p><ul><li><code>1 &lt;= palindrome.length &lt;= 1000</code></li><li><code>palindrome</code> 只包含小写英文字母。</li></ul><p>通过次数3,488</p><p>提交次数7,956</p><h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><pre><code class="python">class Solution:    def breakPalindrome(self, palindrome: str) -&gt; str:        if len(palindrome) == 1 or len(palindrome) == 0:            return &quot;&quot;        temp = list(palindrome)        count = 0        for i in range(len(temp)):            char = temp[i]            if temp[i] != &#39;a&#39;:                temp[i] = &#39;a&#39;                # 替换字符后判断是不是回文串                if( temp != temp[::-1]):                    return &#39;&#39;.join(temp)                else:                    temp[i] = char            count+=1        # 如果字符串全部是a ，则直接替换最后一个字符        if( count == len(temp)):            temp[len(temp) -1] = &#39;b&#39;        return &quot;&quot;.join(temp)</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+          <category> 字符串 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> leetcode </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>1180. 统计只含单一字母的子串</title>
+      <link href="2020/11/26/1180.%20%E7%BB%9F%E8%AE%A1%E5%8F%AA%E5%90%AB%E5%8D%95%E4%B8%80%E5%AD%97%E6%AF%8D%E7%9A%84%E5%AD%90%E4%B8%B2/"/>
+      <url>2020/11/26/1180.%20%E7%BB%9F%E8%AE%A1%E5%8F%AA%E5%90%AB%E5%8D%95%E4%B8%80%E5%AD%97%E6%AF%8D%E7%9A%84%E5%AD%90%E4%B8%B2/</url>
+      
+        <content type="html"><![CDATA[<h4 id="1180-统计只含单一字母的子串"><a href="#1180-统计只含单一字母的子串" class="headerlink" title="1180. 统计只含单一字母的子串"></a><a href="https://leetcode-cn.com/problems/count-substrings-with-only-one-distinct-letter/">1180. 统计只含单一字母的子串</a></h4><p>难度简单18</p><p>给你一个字符串 <code>S</code>，返回只含 <strong>单一字母</strong> 的子串个数。</p><p><strong>示例 1：</strong></p><pre><code class="java">输入： &quot;aaaba&quot;输出： 8解释： 只含单一字母的子串分别是 &quot;aaa&quot;， &quot;aa&quot;， &quot;a&quot;， &quot;b&quot;。&quot;aaa&quot; 出现 1 次。&quot;aa&quot; 出现 2 次。&quot;a&quot; 出现 4 次。&quot;b&quot; 出现 1 次。所以答案是 1 + 2 + 4 + 1 = 8。</code></pre><p><strong>示例 2:</strong></p><pre><code class="java">输入： &quot;aaaaaaaaaa&quot;输出： 55</code></pre><p><strong>提示：</strong></p><ol><li><code>1 &lt;= S.length &lt;= 1000</code></li><li><code>S[i]</code> 仅由小写英文字母组成。</li></ol><h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><pre><code class="java">class Solution &#123;    public int countLetters(String S) &#123;        int res = 0;        int count = 1;        String ss = S + &#39;0&#39;;        char[] temp = ss.toCharArray();        for(int i =0 ; i &lt; temp.length-1; i++)&#123;            if(temp[i] == temp[i+1])&#123;                count++;            &#125;else&#123;                res+=getNum(count);                count = 1;            &#125;        &#125;        return res;    &#125;    public int getNum(int num)&#123;        int count = 0;        while(num &gt;0)&#123;            count+=num;            num--;        &#125;        return count;    &#125;&#125;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+          <category> 字符串 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> leetcode </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>434. 字符串中的单词数</title>
+      <link href="2020/10/30/434.%20%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E5%8D%95%E8%AF%8D%E6%95%B0/"/>
+      <url>2020/10/30/434.%20%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E5%8D%95%E8%AF%8D%E6%95%B0/</url>
+      
+        <content type="html"><![CDATA[<h1 id="434-字符串中的单词数"><a href="#434-字符串中的单词数" class="headerlink" title="434. 字符串中的单词数"></a><a href="https://leetcode-cn.com/problems/number-of-segments-in-a-string/">434. 字符串中的单词数</a></h1><p>难度简单60收藏分享切换为英文接收动态反馈</p><p>统计字符串中的单词个数，这里的单词指的是连续的不是空格的字符。</p><p>请注意，你可以假定字符串里不包括任何不可打印的字符。</p><p><strong>示例:</strong></p><pre><code class="java">输入: &quot;Hello, my name is John&quot;输出: 5解释: 这里的单词是指连续的不是空格的字符，所以 &quot;Hello,&quot; 算作 1 个单词。</code></pre><p>通过次数24,742</p><p>提交次数24,742</p><h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><pre><code class="java">class Solution &#123;    public int countSegments(String s) &#123;        String[] str = s.split(&quot; &quot;);        int count = 0;        for( String i :str)&#123;            if( !&quot;&quot;.equals(i))&#123;                count++;            &#125;        &#125;        return count;    &#125;&#125;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+          <category> 字符串 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> leetcode </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>125. 验证回文串</title>
+      <link href="2020/10/30/125%20%E9%AA%8C%E8%AF%81%E5%9B%9E%E6%96%87%E4%B8%B2/"/>
+      <url>2020/10/30/125%20%E9%AA%8C%E8%AF%81%E5%9B%9E%E6%96%87%E4%B8%B2/</url>
+      
+        <content type="html"><![CDATA[<h1 id="125-验证回文串"><a href="#125-验证回文串" class="headerlink" title="125. 验证回文串"></a><a href="https://leetcode-cn.com/problems/valid-palindrome/">125. 验证回文串</a></h1><p>难度简单286收藏分享切换为英文接收动态反馈</p><p>给定一个字符串，验证它是否是回文串，只考虑字母和数字字符，可以忽略字母的大小写。</p><p><strong>说明：</strong>本题中，我们将空字符串定义为有效的回文串。</p><p><strong>示例 1:</strong></p><pre><code class="java">输入: &quot;A man, a plan, a canal: Panama&quot;输出: true</code></pre><p><strong>示例 2:</strong></p><pre><code class="java">输入: &quot;race a car&quot;输出: false</code></pre><p>通过次数173,071</p><p>提交次数173,071</p><h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><pre><code class="java">class Solution &#123;    public boolean isPalindrome(String s) &#123;        s = s.toLowerCase();        StringBuilder sb = new StringBuilder();        for( char i : s.toCharArray())&#123;            if( Character.isLetterOrDigit(i))&#123;                sb.append(i);            &#125;        &#125;        return sb.toString().equals( sb.reverse().toString());    &#125;&#125;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+          <category> 字符串 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> leetcode </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>1544. 整理字符串</title>
+      <link href="2020/10/30/1544.%20%E6%95%B4%E7%90%86%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+      <url>2020/10/30/1544.%20%E6%95%B4%E7%90%86%E5%AD%97%E7%AC%A6%E4%B8%B2/</url>
+      
+        <content type="html"><![CDATA[<h1 id="1544-整理字符串"><a href="#1544-整理字符串" class="headerlink" title="1544. 整理字符串"></a><a href="https://leetcode-cn.com/problems/make-the-string-great/">1544. 整理字符串</a></h1><p>难度简单15收藏分享切换为英文接收动态反馈</p><p>给你一个由大小写英文字母组成的字符串 <code>s</code> 。</p><p>一个整理好的字符串中，两个相邻字符 <code>s[i]</code> 和 <code>s[i+1]</code>，其中 <code>0&lt;= i &lt;= s.length-2</code> ，要满足如下条件:</p><ul><li>若 <code>s[i]</code> 是小写字符，则 <code>s[i+1]</code> 不可以是相同的大写字符。</li><li>若 <code>s[i]</code> 是大写字符，则 <code>s[i+1]</code> 不可以是相同的小写字符。</li></ul><p>请你将字符串整理好，每次你都可以从字符串中选出满足上述条件的 <strong>两个相邻</strong> 字符并删除，直到字符串整理好为止。</p><p>请返回整理好的 <strong>字符串</strong> 。题目保证在给出的约束条件下，测试样例对应的答案是唯一的。</p><p><strong>注意：</strong>空字符串也属于整理好的字符串，尽管其中没有任何字符。</p><p><strong>示例 1：</strong></p><pre><code class="java">输入：s = &quot;leEeetcode&quot;输出：&quot;leetcode&quot;解释：无论你第一次选的是 i = 1 还是 i = 2，都会使 &quot;leEeetcode&quot; 缩减为 &quot;leetcode&quot; 。</code></pre><p><strong>示例 2：</strong></p><pre><code class="java">输入：s = &quot;abBAcC&quot;输出：&quot;&quot;解释：存在多种不同情况，但所有的情况都会导致相同的结果。例如：&quot;abBAcC&quot; --&gt; &quot;aAcC&quot; --&gt; &quot;cC&quot; --&gt; &quot;&quot;&quot;abBAcC&quot; --&gt; &quot;abBA&quot; --&gt; &quot;aA&quot; --&gt; &quot;&quot;</code></pre><p><strong>示例 3：</strong></p><pre><code class="java">输入：s = &quot;s&quot;输出：&quot;s&quot;</code></pre><p><strong>提示：</strong></p><ul><li><code>1 &lt;= s.length &lt;= 100</code></li><li><code>s</code> 只包含小写和大写英文字母</li></ul><h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><pre><code class="java">class Solution &#123;    public String makeGood(String s) &#123;        Stack&lt;Character&gt; stack = new Stack&lt;&gt;();        for(int i = 0; i &lt; s.length(); i++)&#123;            if(!stack.isEmpty())&#123;                if( (s.charAt(i) - stack.peek() == 32) ||(s.charAt(i) - stack.peek() == -32) )&#123;                    stack.pop();                &#125;else&#123;                    stack.push(s.charAt(i));                &#125;            &#125;else&#123;                stack.push( s.charAt(i));            &#125;        &#125;        StringBuilder sb = new StringBuilder();        while( !stack.isEmpty())&#123;            sb.append( stack.pop());        &#125;        return sb.reverse().toString();    &#125;&#125;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+          <category> 字符串 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> leetcode </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>19. 删除链表的倒数第N个节点</title>
+      <link href="2020/10/28/19.%20%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%ACN%E4%B8%AA%E8%8A%82%E7%82%B9/"/>
+      <url>2020/10/28/19.%20%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%ACN%E4%B8%AA%E8%8A%82%E7%82%B9/</url>
+      
+        <content type="html"><![CDATA[<h4 id="19-删除链表的倒数第N个节点"><a href="#19-删除链表的倒数第N个节点" class="headerlink" title="19. 删除链表的倒数第N个节点"></a><a href="https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/">19. 删除链表的倒数第N个节点</a></h4><p>难度中等1087收藏分享切换为英文接收动态反馈</p><p>给定一个链表，删除链表的倒数第 <em>n</em> 个节点，并且返回链表的头结点。</p><p><strong>示例：</strong></p><pre><code class="java">给定一个链表: 1-&gt;2-&gt;3-&gt;4-&gt;5, 和 n = 2.当删除了倒数第二个节点后，链表变为 1-&gt;2-&gt;3-&gt;5.</code></pre><p><strong>说明：</strong></p><p>给定的 <em>n</em> 保证是有效的。</p><p><strong>进阶：</strong></p><p>你能尝试使用一趟扫描实现吗？</p><p>通过次数274,931</p><p>提交次数679,764</p><h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><p>解题思路<br>本题解采用了 双指针 的思想：</p><blockquote><p>只需要使得 快指针 比 慢指针 快 n个节点 就行<br>之后两个指针同时向后遍历。直到 快指针 到达 链表的最后一个元素，慢指针 即 目标元素</p></blockquote><p>但是需要注意的一点是：</p><blockquote><p>为了防止 删除目标节点 导致 空指针异常，我们需要为原串增加一个 头节点</p></blockquote><pre><code class="java">/** * Definition for singly-linked list. * public class ListNode &#123; *     int val; *     ListNode next; *     ListNode() &#123;&#125; *     ListNode(int val) &#123; this.val = val; &#125; *     ListNode(int val, ListNode next) &#123; this.val = val; this.next = next; &#125; * &#125; */class Solution &#123;    public ListNode removeNthFromEnd(ListNode head, int n) &#123;        if( n &lt; 1 || head == null) return head;        ListNode pre = new ListNode();        pre.next = head;        ListNode slow = pre;        ListNode fast = pre;        for(int i = 0; i &lt; n+1; i++)&#123;            fast = fast.next;        &#125;        while( fast != null)&#123;            fast = fast.next;            slow = slow.next;        &#125;        slow.next = slow.next.next;        return pre.next;    &#125;&#125;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+          <category> 链表 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> leetcode </tag>
+            
+            <tag> 双指针 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>剑指 Offer 18. 删除链表的节点</title>
+      <link href="2020/10/28/%E5%89%91%E6%8C%87%20Offer%2018.%20%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E8%8A%82%E7%82%B9/"/>
+      <url>2020/10/28/%E5%89%91%E6%8C%87%20Offer%2018.%20%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E8%8A%82%E7%82%B9/</url>
+      
+        <content type="html"><![CDATA[<h4 id="剑指-Offer-18-删除链表的节点"><a href="#剑指-Offer-18-删除链表的节点" class="headerlink" title="剑指 Offer 18. 删除链表的节点"></a><a href="https://leetcode-cn.com/problems/shan-chu-lian-biao-de-jie-dian-lcof/">剑指 Offer 18. 删除链表的节点</a></h4><p>难度简单65</p><p>给定单向链表的头指针和一个要删除的节点的值，定义一个函数删除该节点。</p><p>返回删除后的链表的头节点。</p><p><strong>注意：</strong>此题对比原题有改动</p><p><strong>示例 1:</strong></p><pre><code class="java">输入: head = [4,5,1,9], val = 5输出: [4,1,9]解释: 给定你链表中值为 5 的第二个节点，那么在调用了你的函数之后，该链表应变为 4 -&gt; 1 -&gt; 9.</code></pre><p><strong>示例 2:</strong></p><pre><code class="java">输入: head = [4,5,1,9], val = 1输出: [4,5,9]解释: 给定你链表中值为 1 的第三个节点，那么在调用了你的函数之后，该链表应变为 4 -&gt; 5 -&gt; 9.</code></pre><p><strong>说明：</strong></p><ul><li>题目保证链表中节点的值互不相同</li><li>若使用 C 或 C++ 语言，你不需要 <code>free</code> 或 <code>delete</code> 被删除的节点</li></ul><p>通过次数72,052</p><p>提交次数122,514</p><h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><p>单指针</p><pre><code class="java">/** * Definition for singly-linked list. * public class ListNode &#123; *     int val; *     ListNode next; *     ListNode(int x) &#123; val = x; &#125; * &#125; */class Solution &#123;    public ListNode deleteNode(ListNode head, int val) &#123;        if(head.val == val)&#123;            return head.next;        &#125;                ListNode dummy = head;        while( head.next != null)&#123;            if( head.next.val == val)&#123;                head.next = head.next.next;                break;            &#125;            head = head.next;        &#125;        return dummy;    &#125;&#125;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+          <category> 链表 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> leetcode </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>21. 合并两个有序链表</title>
+      <link href="2020/10/28/21.%20%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E9%93%BE%E8%A1%A8/"/>
+      <url>2020/10/28/21.%20%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E9%93%BE%E8%A1%A8/</url>
+      
+        <content type="html"><![CDATA[<h1 id="21-合并两个有序链表"><a href="#21-合并两个有序链表" class="headerlink" title="21. 合并两个有序链表"></a><a href="https://leetcode-cn.com/problems/merge-two-sorted-lists/">21. 合并两个有序链表</a></h1><p>难度简单1345收藏分享切换为英文接收动态反馈</p><p>将两个升序链表合并为一个新的 <strong>升序</strong> 链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。 </p><p><strong>示例：</strong></p><pre><code class="java">输入：1-&gt;2-&gt;4, 1-&gt;3-&gt;4输出：1-&gt;1-&gt;2-&gt;3-&gt;4-&gt;4</code></pre><p>通过次数398,263</p><p>提交次数616,571</p><h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><pre><code class="java">/** * Definition for singly-linked list. * public class ListNode &#123; *     int val; *     ListNode next; *     ListNode() &#123;&#125; *     ListNode(int val) &#123; this.val = val; &#125; *     ListNode(int val, ListNode next) &#123; this.val = val; this.next = next; &#125; * &#125; */class Solution &#123;    public ListNode mergeTwoLists(ListNode l1, ListNode l2) &#123;        if( l1 == null) return l2;        if( l2 == null) return l1;        ListNode dummy = new ListNode();        ListNode pre = dummy;        while( l1 != null  &amp;&amp; l2 != null)&#123;            if( l1.val &lt;= l2.val)&#123;                pre.next = l1;                l1 = l1.next;            &#125;else&#123;                pre.next = l2;                l2 = l2.next;            &#125;            pre = pre.next;        &#125;        pre.next = l1 == null ? l2: l1;        return dummy.next;    &#125;&#125;</code></pre><p>因为链表是升序的，我们只需要遍历每个链表的头，比较一下哪个小就把哪个链表的头拿出来放到新的链表中，一直这样循环，直到有一个链表为空，然后我们再把另一个不为空的链表挂到新的链表中。<br>我们就以3→4→7→9和2→5→6两个链表来画个图看一下是怎么合并的</p><p><img src="https://pic.leetcode-cn.com/8056ae02cbcd1b170ef27d7553d0281accfd31f2673353dd6fc472f80301c4f1-image.png" alt="image.png"><br><img src="https://pic.leetcode-cn.com/ceb23158d4d4921dc754fe2e149bbbcfca0a3a13dd63ecc18a2890e4f4254383-image.png" alt="image.png"><br><img src="https://pic.leetcode-cn.com/332476e453a011a1ee83860ae07f6b1795adf361ab04061fefa28f57a2982b1d-image.png" alt="image.png"></p><p>参考： <a href="https://leetcode-cn.com/problems/merge-two-sorted-lists/solution/javadai-ma-di-gui-he-fei-di-gui-tu-wen-jiang-jie-b/">https://leetcode-cn.com/problems/merge-two-sorted-lists/solution/javadai-ma-di-gui-he-fei-di-gui-tu-wen-jiang-jie-b/</a>  </p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+          <category> 链表 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> leetcode </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>867. 转置矩阵</title>
       <link href="2020/10/27/867.%20%E8%BD%AC%E7%BD%AE%E7%9F%A9%E9%98%B5/"/>
       <url>2020/10/27/867.%20%E8%BD%AC%E7%BD%AE%E7%9F%A9%E9%98%B5/</url>
