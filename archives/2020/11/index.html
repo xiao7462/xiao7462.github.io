@@ -23,7 +23,7 @@
 
 <link href="/css/style.css?v=1.1.0" rel="stylesheet">
 
-<link href="/css/hl_theme/darcula.css?v=1.1.0" rel="stylesheet">
+<link href="/css/hl_theme/zenbum.css?v=1.1.0" rel="stylesheet">
 
 <link href="//cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" rel="stylesheet">
 
@@ -103,7 +103,7 @@
 
 
 <ul>
-    <li><div class="all active" data-rel="All">All<small>(52)</small></div></li>
+    <li><div class="all active" data-rel="All">All<small>(53)</small></div></li>
     
         
             
@@ -139,10 +139,18 @@
     
         
             
-            <li><div data-rel="算法"><i class="fold iconfont icon-right"></i>算法<small>(52)</small></div>
+        
+    
+        
+            
+            <li><div data-rel="算法"><i class="fold iconfont icon-right"></i>算法<small>(53)</small></div>
                 
                     <ul class="sub hide">
                         
+                        <li><div data-rel="算法<--->bfs">bfs<small>(1)</small></div>
+                            
+                        </li>
+                            
                         <li><div data-rel="算法<--->hash">hash<small>(1)</small></div>
                             
                         </li>
@@ -199,8 +207,8 @@
     </div>
     <div><a class="about  hasFriend  site_url"  href="/about">About</a><a style="width: 50%"  class="friends">Friends</a></div>
 </div>
-<input type="hidden" id="yelog_site_posts_number" value="52">
-<input type="hidden" id="yelog_site_word_count" value="20.3k">
+<input type="hidden" id="yelog_site_posts_number" value="53">
+<input type="hidden" id="yelog_site_word_count" value="20.8k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -244,6 +252,10 @@
     <div class="tags-list">
     <input id="tag-search" />
     <div class="tag-wrapper">
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>bfs</a>
+            </li>
         
             <li class="article-tag-list-item">
                 <i class="iconfont icon-tag"></i><a>dfs</a>
@@ -295,6 +307,14 @@
 
     
     <nav id="title-list-nav">
+        
+        <a  class="All 算法 bfs "
+           href="/2021/05/03/200.%20%E5%B2%9B%E5%B1%BF%E6%95%B0%E9%87%8F/"
+           data-tag="leetcode,bfs"
+           data-author="" >
+            <span class="post-title" title="200. 岛屿数量">200. 岛屿数量</span>
+            <span class="post-date" title="2021-05-03 10:05:06">2021/05/03</span>
+        </a>
         
         <a  class="All 算法 字符串 "
            href="/2020/12/08/553.%20%E6%9C%80%E4%BC%98%E9%99%A4%E6%B3%95/"
@@ -760,10 +780,6 @@
 
         </article>
         
-        <p>
-            <a  class="dashang" onclick="dashangToggle()">赏</a>
-        </p>
-        
         
     <div id="comments"></div>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
@@ -801,24 +817,6 @@
 
 </div>
 
-<div class="hide_box" onclick="dashangToggle()"></div>
-<div class="shang_box">
-    <a class="shang_close"  onclick="dashangToggle()">×</a>
-    <div class="shang_tit">
-        <p>Help us with donation</p>
-    </div>
-    <div class="shang_payimg">
-        <div class="pay_img">
-            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
-            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
-        </div>
-    </div>
-    <div class="shang_payselect">
-        <span><label><input type="radio" name="pay" checked value="alipay">alipay</label></span><span><label><input type="radio" name="pay" value="weixin">weixin</label></span>
-    </div>
-</div>
-
-
 </body>
 <script src="/js/jquery.pjax.js?v=1.1.0" ></script>
 
@@ -832,14 +830,6 @@
         
 
         /*渲染打赏样式*/
-        
-        $("input[name=pay]").on("click", function () {
-            if($("input[name=pay]:checked").val()=="weixin"){
-                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
-            } else {
-                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
-            }
-        })
         
 
         /*高亮代码块行号*/
@@ -858,11 +848,6 @@
     }
 
     /*打赏页面隐藏与展示*/
-    
-    function dashangToggle() {
-        $(".shang_box").fadeToggle();
-        $(".hide_box").fadeToggle();
-    }
     
 
 </script>
